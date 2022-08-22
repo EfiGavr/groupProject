@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="groupproject.projectx_main_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>groupproject.projectx.model.Route</class>
+    <class>groupproject.projectx.model.Ticket</class>
+    <class>groupproject.projectx.model.Flight</class>
+    <class>groupproject.projectx.model.PassengerFlight</class>
+    <class>groupproject.projectx.model.Passengertoticket</class>
+    <class>groupproject.projectx.model.Passenger</class>
+    <class>groupproject.projectx.model.Airplane</class>
+    <class>groupproject.projectx.model.Pilot</class>
+    <class>groupproject.projectx.model.AirplaneFlight</class>
+    <class>groupproject.projectx.model.PilotFlight</class>
+    <class>groupproject.projectx.model.RouteFlight</class>
+    <class>groupproject.projectx.model.Member</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ra1.anystream.eu:1501/airline?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="tracking1501"/>
+    </properties>
+  </persistence-unit>
+</persistence>
