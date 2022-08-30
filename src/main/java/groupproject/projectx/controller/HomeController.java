@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package groupproject.projectx.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-/**
- *
- * @author Vaggelis
- */
-@Controller
-public class HomeController {
-    
-    
-    @GetMapping("/")
-    public String showWelcomePage(){
-        
-     
-        return "home";
-    }        
-}
+//
+//package groupproject.projectx.controller;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+//@Controller
+//public class HomeController {
+//    
+//    
+//    @GetMapping("/")
+//    public String showWelcomePage(){
+//        
+//     
+//        return "home";
+//    }        
+//}

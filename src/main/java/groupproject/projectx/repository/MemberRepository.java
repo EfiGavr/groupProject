@@ -4,13 +4,13 @@
  */
 package groupproject.projectx.repository;
 
-import groupproject.projectx.model.Member;
+import groupproject.projectx.model.Members;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author dream
  */
-public interface MemberRepository extends JpaRepository<Member,Integer>{
+public interface MemberRepository extends JpaRepository<Members,Integer>{
     
 }

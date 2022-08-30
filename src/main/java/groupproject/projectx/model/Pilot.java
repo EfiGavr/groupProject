@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -21,21 +18,28 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author Vaggelis
- */
 @Entity
 @Table(name = "pilot")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pilot.findAll", query = "SELECT p FROM Pilot p"),
-    @NamedQuery(name = "Pilot.findByPilotId", query = "SELECT p FROM Pilot p WHERE p.pilotId = :pilotId"),
-    @NamedQuery(name = "Pilot.findByLicenceNumber", query = "SELECT p FROM Pilot p WHERE p.licenceNumber = :licenceNumber"),
-    @NamedQuery(name = "Pilot.findByFname", query = "SELECT p FROM Pilot p WHERE p.fname = :fname"),
-    @NamedQuery(name = "Pilot.findByLname", query = "SELECT p FROM Pilot p WHERE p.lname = :lname"),
-    @NamedQuery(name = "Pilot.findByContactNumber", query = "SELECT p FROM Pilot p WHERE p.contactNumber = :contactNumber")})
+    @NamedQuery(name = "Pilot.findAll", query = "SELECT p FROM Pilot p")})
 public class Pilot implements Serializable {
+
+    @Size(max = 45)
+    @Column(name = "fname")
+    private String fname;
+    
+    @Size(max = 45)
+    @Column(name = "lname")
+    private String lname;
+    
+    @Size(max = 45)
+    @Column(name = "contact_number")
+    private String contactNumber;
+    
+    @OneToMany(mappedBy = "pilot")
+    @JsonManagedReference
+    private Set<PilotFlight> pilotFlightSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,19 +47,10 @@ public class Pilot implements Serializable {
     @Basic(optional = false)
     @Column(name = "pilot_id")
     private Integer pilotId;
+    
     @Column(name = "licence_number")
     private Integer licenceNumber;
-    @Size(max = 45)
-    @Column(name = "fname")
-    private String fname;
-    @Size(max = 45)
-    @Column(name = "lname")
-    private String lname;
-    @Size(max = 45)
-    @Column(name = "contact_number")
-    private String contactNumber;
-    @OneToMany(mappedBy = "pilot")
-    private Set<PilotFlight> pilotFlightSet;
+
 
     public Pilot() {
     }
@@ -80,21 +75,6 @@ public class Pilot implements Serializable {
         this.licenceNumber = licenceNumber;
     }
 
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
 
     public String getContactNumber() {
         return contactNumber;
@@ -135,17 +115,22 @@ public class Pilot implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Pilot{pilotId=").append(pilotId);
-        sb.append(", licenceNumber=").append(licenceNumber);
-        sb.append(", fname=").append(fname);
-        sb.append(", lname=").append(lname);
-        sb.append(", contactNumber=").append(contactNumber);
-        sb.append(", pilotFlightSet=").append(pilotFlightSet);
-        sb.append('}');
-        return sb.toString();
+        return "groupproject.projectx.model.Pilot[ pilotId=" + pilotId + " ]";
     }
 
-   
-    
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }  
 }

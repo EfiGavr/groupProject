@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package groupproject.projectx.model;
 
 import java.io.Serializable;
@@ -14,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,21 +16,29 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author Vaggelis
- */
 @Entity
 @Table(name = "passenger")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Passenger.findAll", query = "SELECT p FROM Passenger p"),
-    @NamedQuery(name = "Passenger.findByPassengerId", query = "SELECT p FROM Passenger p WHERE p.passengerId = :passengerId"),
-    @NamedQuery(name = "Passenger.findByTelephoneNumber", query = "SELECT p FROM Passenger p WHERE p.telephoneNumber = :telephoneNumber"),
-    @NamedQuery(name = "Passenger.findByEmail", query = "SELECT p FROM Passenger p WHERE p.email = :email"),
-    @NamedQuery(name = "Passenger.findByFname", query = "SELECT p FROM Passenger p WHERE p.fname = :fname"),
-    @NamedQuery(name = "Passenger.findByLname", query = "SELECT p FROM Passenger p WHERE p.lname = :lname")})
+
 public class Passenger implements Serializable {
+
+    @Size(max = 45)
+    @Column(name = "telephone_number")
+    private String telephoneNumber;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 45)
+    
+    @Column(name = "email")
+    private String email;
+    
+    @Size(max = 45)
+    @Column(name = "fname")
+    private String fname;
+    
+    @Size(max = 45)
+    @Column(name = "lname")
+    private String lname;
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,25 +46,15 @@ public class Passenger implements Serializable {
     @Basic(optional = false)
     @Column(name = "passenger_id")
     private Integer passengerId;
-    @Size(max = 45)
-    @Column(name = "telephone_number")
-    private String telephoneNumber;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 45)
-    @Column(name = "email")
-    private String email;
-    @Size(max = 45)
-    @Column(name = "fname")
-    private String fname;
-    @Size(max = 45)
-    @Column(name = "lname")
-    private String lname;
+    
+    @OneToMany(mappedBy = "passenger")
+    private Set<PassengerTicket> passengerTicketSet;
+    
     @OneToMany(mappedBy = "passenger")
     private Set<PassengerFlight> passengerFlightSet;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "passenger")
-    private Member member;
-    @OneToMany(mappedBy = "passenger")
-    private Set<Passengertoticket> passengertoticketSet;
+    private Members member1;
 
     public Passenger() {
     }
@@ -88,54 +79,28 @@ public class Passenger implements Serializable {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
 
     @XmlTransient
-    public Set<PassengerFlight> getPassengerFlightSet() {
-        return passengerFlightSet;
+    public Set<PassengerTicket> getPassengerTicketSet() {
+        return passengerTicketSet;
     }
+
+    public void setPassengerTicketSet(Set<PassengerTicket> passengerTicketSet) {
+        this.passengerTicketSet = passengerTicketSet;
+    }
+
+
 
     public void setPassengerFlightSet(Set<PassengerFlight> passengerFlightSet) {
         this.passengerFlightSet = passengerFlightSet;
     }
 
-    public Member getMember1() {
-        return member;
+    public Members getMember1() {
+        return member1;
     }
 
-    public void setMember1(Member member) {
-        this.member = member;
-    }
-
-    @XmlTransient
-    public Set<Passengertoticket> getPassengertoticketSet() {
-        return passengertoticketSet;
-    }
-
-    public void setPassengertoticketSet(Set<Passengertoticket> passengertoticketSet) {
-        this.passengertoticketSet = passengertoticketSet;
+    public void setMember1(Members member1) {
+        this.member1 = member1;
     }
 
     @Override
@@ -160,19 +125,32 @@ public class Passenger implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Passenger{passengerId=").append(passengerId);
-        sb.append(", telephoneNumber=").append(telephoneNumber);
-        sb.append(", email=").append(email);
-        sb.append(", fname=").append(fname);
-        sb.append(", lname=").append(lname);
-        sb.append(", passengerFlightSet=").append(passengerFlightSet);
-        sb.append(", member=").append(member);
-        sb.append(", passengertoticketSet=").append(passengertoticketSet);
-        sb.append('}');
-        return sb.toString();
+        return "groupproject.projectx.model.Passenger[ passengerId=" + passengerId + " ]";
     }
 
-   
-    
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
 }

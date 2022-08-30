@@ -13,46 +13,46 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "airplane_flight")
+@Table(name = "cabincrew_flight")
 @XmlRootElement
-public class AirplaneFlight implements Serializable {
+public class CabincrewFlight implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "airplane_flight_id")
-    private Integer airplaneFlightId;
+    @Column(name = "cabincrew_flight_id")
+    private Integer cabincrewFlightId;
     
-    @JoinColumn(name = "airplane", referencedColumnName = "airplane_id")
+    @JoinColumn(name = "cabincrew", referencedColumnName = "cabincrew_id")
     @ManyToOne
-    private Airplane airplane;
+    private Cabincrew cabincrew;
     
     @JoinColumn(name = "flight", referencedColumnName = "flight_id")
     @ManyToOne
     private Flight flight;
 
-    public AirplaneFlight() {
+    public CabincrewFlight() {
     }
 
-    public AirplaneFlight(Integer airplaneFlightId) {
-        this.airplaneFlightId = airplaneFlightId;
+    public CabincrewFlight(Integer cabincrewFlightId) {
+        this.cabincrewFlightId = cabincrewFlightId;
     }
 
-    public Integer getAirplaneFlightId() {
-        return airplaneFlightId;
+    public Integer getCabincrewFlightId() {
+        return cabincrewFlightId;
     }
 
-    public void setAirplaneFlightId(Integer airplaneFlightId) {
-        this.airplaneFlightId = airplaneFlightId;
+    public void setCabincrewFlightId(Integer cabincrewFlightId) {
+        this.cabincrewFlightId = cabincrewFlightId;
     }
 
-    public Airplane getAirplane() {
-        return airplane;
+    public Cabincrew getCabincrew() {
+        return cabincrew;
     }
 
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
+    public void setCabincrew(Cabincrew cabincrew) {
+        this.cabincrew = cabincrew;
     }
 
     public Flight getFlight() {
@@ -66,18 +66,18 @@ public class AirplaneFlight implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (airplaneFlightId != null ? airplaneFlightId.hashCode() : 0);
+        hash += (cabincrewFlightId != null ? cabincrewFlightId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AirplaneFlight)) {
+        if (!(object instanceof CabincrewFlight)) {
             return false;
         }
-        AirplaneFlight other = (AirplaneFlight) object;
-        if ((this.airplaneFlightId == null && other.airplaneFlightId != null) || (this.airplaneFlightId != null && !this.airplaneFlightId.equals(other.airplaneFlightId))) {
+        CabincrewFlight other = (CabincrewFlight) object;
+        if ((this.cabincrewFlightId == null && other.cabincrewFlightId != null) || (this.cabincrewFlightId != null && !this.cabincrewFlightId.equals(other.cabincrewFlightId))) {
             return false;
         }
         return true;
@@ -85,7 +85,7 @@ public class AirplaneFlight implements Serializable {
 
     @Override
     public String toString() {
-        return "groupproject.projectx.model.AirplaneFlight[ airplaneFlightId=" + airplaneFlightId + " ]";
+        return "groupproject.projectx.model.CabincrewFlight[ cabincrewFlightId=" + cabincrewFlightId + " ]";
     }
-    
+
 }

@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,21 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Vaggelis
- */
 @Entity
 @Table(name = "pilot_flight")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "PilotFlight.findAll", query = "SELECT p FROM PilotFlight p"),
-    @NamedQuery(name = "PilotFlight.findByPilotFlightId", query = "SELECT p FROM PilotFlight p WHERE p.pilotFlightId = :pilotFlightId")})
+
 public class PilotFlight implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,11 +25,14 @@ public class PilotFlight implements Serializable {
     @Basic(optional = false)
     @Column(name = "pilot_flight_id")
     private Integer pilotFlightId;
+
     @JoinColumn(name = "flight", referencedColumnName = "flight_id")
     @ManyToOne
     private Flight flight;
+
     @JoinColumn(name = "pilot", referencedColumnName = "pilot_id")
     @ManyToOne
+    @JsonBackReference
     private Pilot pilot;
 
     public PilotFlight() {
@@ -97,14 +88,7 @@ public class PilotFlight implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("PilotFlight{pilotFlightId=").append(pilotFlightId);
-        sb.append(", flight=").append(flight);
-        sb.append(", pilot=").append(pilot);
-        sb.append('}');
-        return sb.toString();
+        return "groupproject.projectx.model.PilotFlight[ pilotFlightId=" + pilotFlightId + " ]";
     }
 
-  
-    
 }
