@@ -23,11 +23,11 @@ public class CabincrewFlight implements Serializable {
     @Basic(optional = false)
     @Column(name = "cabincrew_flight_id")
     private Integer cabincrewFlightId;
-    
+
     @JoinColumn(name = "cabincrew", referencedColumnName = "cabincrew_id")
     @ManyToOne
     private Cabincrew cabincrew;
-    
+
     @JoinColumn(name = "flight", referencedColumnName = "flight_id")
     @ManyToOne
     private Flight flight;

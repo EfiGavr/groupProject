@@ -1,3 +1,4 @@
+
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,63 +17,50 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "airport_flight")
+@Table(name = "client_flight")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "AirportFlight.findAll", query = "SELECT a FROM AirportFlight a")})
-public class AirportFlight implements Serializable {
+        @NamedQuery(name = "ClientFlight.findAll", query = "SELECT c FROM ClientFlight c")})
+public class ClientFlight implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "airport_flight_id")
-    private Integer airportFlightId;
+    @Column(name = "client_flight_id")
+    private Integer clientFlightId;
 
-    @JoinColumn(name = "from", referencedColumnName = "airport_id")
+    @JoinColumn(name = "client", referencedColumnName = "client_id")
     @ManyToOne
     @JsonBackReference
-    private Airport from1;
-
-    @JoinColumn(name = "to", referencedColumnName = "airport_id")
-    @ManyToOne
-    @JsonBackReference
-    private Airport to;
+    private Client client;
 
     @JoinColumn(name = "flight", referencedColumnName = "flight_id")
     @ManyToOne
     @JsonBackReference
     private Flight flight;
 
-    public AirportFlight() {
+    public ClientFlight() {
     }
 
-    public AirportFlight(Integer airportFlightId) {
-        this.airportFlightId = airportFlightId;
+    public ClientFlight(Integer clientFlightId) {
+        this.clientFlightId = clientFlightId;
     }
 
-    public Integer getAirportFlightId() {
-        return airportFlightId;
+    public Integer getClientFlightId() {
+        return clientFlightId;
     }
 
-    public void setAirportFlightId(Integer airportFlightId) {
-        this.airportFlightId = airportFlightId;
+    public void setClientFlightId(Integer clientFlightId) {
+        this.clientFlightId = clientFlightId;
     }
 
-    public Airport getFrom1() {
-        return from1;
+    public Client getClient() {
+        return client;
     }
 
-    public void setFrom1(Airport from1) {
-        this.from1 = from1;
-    }
-
-    public Airport getTo() {
-        return to;
-    }
-
-    public void setTo(Airport to) {
-        this.to = to;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Flight getFlight() {
@@ -86,18 +74,18 @@ public class AirportFlight implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (airportFlightId != null ? airportFlightId.hashCode() : 0);
+        hash += (clientFlightId != null ? clientFlightId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AirportFlight)) {
+        if (!(object instanceof ClientFlight)) {
             return false;
         }
-        AirportFlight other = (AirportFlight) object;
-        if ((this.airportFlightId == null && other.airportFlightId != null) || (this.airportFlightId != null && !this.airportFlightId.equals(other.airportFlightId))) {
+        ClientFlight other = (ClientFlight) object;
+        if ((this.clientFlightId == null && other.clientFlightId != null) || (this.clientFlightId != null && !this.clientFlightId.equals(other.clientFlightId))) {
             return false;
         }
         return true;
@@ -105,7 +93,7 @@ public class AirportFlight implements Serializable {
 
     @Override
     public String toString() {
-        return "groupproject.projectx.model.AirportFlight[ airportFlightId=" + airportFlightId + " ]";
+        return "groupproject.projectx.model.ClientFlight[ clientFlightId=" + clientFlightId + " ]";
     }
 
 }

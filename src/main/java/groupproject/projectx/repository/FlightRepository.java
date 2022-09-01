@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package groupproject.projectx.repository;
 
 import groupproject.projectx.model.Flight;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- *
- * @author dream
- */
-public interface FlightRepository extends JpaRepository<Flight,Integer>{
-    
+public interface FlightRepository extends JpaRepository<Flight, Integer> {
+
+    List<Flight> findAllByDepartureBetween(LocalDateTime departureStartDate, LocalDateTime departureEndDate);
+
+    List<Flight> findAllByArrivalBetween(LocalDateTime arrivalStartDate, LocalDateTime arrivalEndDate);
+
 }

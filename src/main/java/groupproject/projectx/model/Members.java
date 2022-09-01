@@ -2,23 +2,24 @@
 package groupproject.projectx.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "member")
 @XmlRootElement
-
+@NamedQueries({
+        @NamedQuery(name = "Members.findAll", query = "SELECT m FROM Members m")})
 public class Members implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,17 +28,21 @@ public class Members implements Serializable {
     @NotNull
     @Column(name = "member_id")
     private Integer memberId;
-    
+
+    @Size(max = 45)
+    @Column(name = "username")
+    private String username;
+
+    @Size(max = 60)
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "bonus")
     private Integer bonus;
-    
-    @Column(name = "since_when")
-    @Temporal(TemporalType.DATE)
-    private Date sinceWhen;
-    
-    @JoinColumn(name = "member_id", referencedColumnName = "passenger_id", insertable = false, updatable = false)
+
+    @JoinColumn(name = "member_id", referencedColumnName = "client_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
-    private Passenger passenger;
+    private Client client;
 
     public Members() {
     }
@@ -54,6 +59,22 @@ public class Members implements Serializable {
         this.memberId = memberId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getBonus() {
         return bonus;
     }
@@ -62,20 +83,12 @@ public class Members implements Serializable {
         this.bonus = bonus;
     }
 
-    public Date getSinceWhen() {
-        return sinceWhen;
+    public Client getClient() {
+        return client;
     }
 
-    public void setSinceWhen(Date sinceWhen) {
-        this.sinceWhen = sinceWhen;
-    }
-
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
@@ -100,7 +113,7 @@ public class Members implements Serializable {
 
     @Override
     public String toString() {
-        return "groupproject.projectx.model.Member1[ memberId=" + memberId + " ]";
+        return "groupproject.projectx.model.Members[ memberId=" + memberId + " ]";
     }
-    
+
 }

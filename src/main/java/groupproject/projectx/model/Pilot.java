@@ -1,4 +1,5 @@
 
+
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,24 +23,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "pilot")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pilot.findAll", query = "SELECT p FROM Pilot p")})
+        @NamedQuery(name = "Pilot.findAll", query = "SELECT p FROM Pilot p")})
 public class Pilot implements Serializable {
-
-    @Size(max = 45)
-    @Column(name = "fname")
-    private String fname;
-    
-    @Size(max = 45)
-    @Column(name = "lname")
-    private String lname;
-    
-    @Size(max = 45)
-    @Column(name = "contact_number")
-    private String contactNumber;
-    
-    @OneToMany(mappedBy = "pilot")
-    @JsonManagedReference
-    private Set<PilotFlight> pilotFlightSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,7 +32,23 @@ public class Pilot implements Serializable {
     @Basic(optional = false)
     @Column(name = "pilot_id")
     private Integer pilotId;
-    
+
+    @Size(max = 45)
+    @Column(name = "fname")
+    private String fname;
+
+    @Size(max = 45)
+    @Column(name = "lname")
+    private String lname;
+
+    @Size(max = 45)
+    @Column(name = "contact_number")
+    private String contactNumber;
+
+    @OneToMany(mappedBy = "pilot")
+    @JsonManagedReference
+    private Set<PilotFlight> pilotFlightSet;
+
     @Column(name = "licence_number")
     private Integer licenceNumber;
 
@@ -132,5 +133,5 @@ public class Pilot implements Serializable {
 
     public void setLname(String lname) {
         this.lname = lname;
-    }  
+    }
 }

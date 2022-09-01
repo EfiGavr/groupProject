@@ -23,11 +23,11 @@ public class Airplane implements Serializable {
     @Size(max = 45)
     @Column(name = "manufacture")
     private String manufacture;
-    
+
     @Size(max = 45)
     @Column(name = "model_number")
     private String modelNumber;
-    
+
     @OneToMany(mappedBy = "airplane")
     private Set<AirplaneFlight> airplaneFlightSet;
 
@@ -37,10 +37,10 @@ public class Airplane implements Serializable {
     @Basic(optional = false)
     @Column(name = "airplane_id")
     private Integer airplaneId;
-    
+
     @Column(name = "capacity")
     private Integer capacity;
-   
+
 
     public Airplane() {
     }
@@ -116,4 +116,4 @@ public class Airplane implements Serializable {
         this.manufacture = manufacture;
     }
 
-    }
+}

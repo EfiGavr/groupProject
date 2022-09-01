@@ -23,15 +23,15 @@ public class CabincrewNames implements Serializable {
     @NotNull
     @Column(name = "cabincrew_names_id")
     private Integer cabincrewNamesId;
-    
+
     @Size(max = 45)
     @Column(name = "cabincrew_fname")
     private String cabincrewFname;
-    
+
     @Size(max = 45)
     @Column(name = "cabincrew_lname")
     private String cabincrewLname;
-    
+
     @JoinColumn(name = "cabincrew_names_id", referencedColumnName = "cabincrew_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Cabincrew cabincrew;

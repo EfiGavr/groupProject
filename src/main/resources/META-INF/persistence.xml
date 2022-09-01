@@ -5,15 +5,15 @@
     <class>groupproject.projectx.model.Route</class>
     <class>groupproject.projectx.model.Ticket</class>
     <class>groupproject.projectx.model.Flight</class>
-    <class>groupproject.projectx.model.PassengerFlight</class>
-    <class>groupproject.projectx.model.Passenger</class>
+    <class>groupproject.projectx.model.ClientFlight</class>
+    <class>groupproject.projectx.model.Client</class>
     <class>groupproject.projectx.model.Airplane</class>
     <class>groupproject.projectx.model.Pilot</class>
     <class>groupproject.projectx.model.AirplaneFlight</class>
     <class>groupproject.projectx.model.PilotFlight</class>
     <class>groupproject.projectx.model.RouteFlight</class>
     <class>groupproject.projectx.model.Members</class>
-    <class>groupproject.projectx.model.PassengerTicket</class>
+    <class>groupproject.projectx.model.ClientTicket</class>
     <class>groupproject.projectx.model.CabincrewFlight</class>
     <class>groupproject.projectx.model.CabincrewNames</class>
     <class>groupproject.projectx.model.Flight_1</class>

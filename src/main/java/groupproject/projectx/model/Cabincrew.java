@@ -24,11 +24,11 @@ public class Cabincrew implements Serializable {
     @Size(max = 45)
     @Column(name = "cb_fname")
     private String cbFname;
-    
+
     @Size(max = 45)
     @Column(name = "cb_lname")
     private String cbLname;
-    
+
     @OneToMany(mappedBy = "cabincrew")
     private Set<CabincrewFlight> cabincrewFlightSet;
 
@@ -38,7 +38,7 @@ public class Cabincrew implements Serializable {
     @Basic(optional = false)
     @Column(name = "cabincrew_id")
     private Integer cabincrewId;
-    
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "cabincrew")
     private CabincrewNames cabincrewNames;
 

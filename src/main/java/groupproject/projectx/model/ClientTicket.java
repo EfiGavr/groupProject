@@ -1,3 +1,4 @@
+
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,48 +17,50 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "passenger_ticket")
+@Table(name = "client_ticket")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PassengerTicket.findAll", query = "SELECT p FROM PassengerTicket p")})
-public class PassengerTicket implements Serializable {
+        @NamedQuery(name = "ClientTicket.findAll", query = "SELECT c FROM ClientTicket c")})
+public class ClientTicket implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "passenger_ticket_id")
-    private Integer passengerTicketId;
-    @JoinColumn(name = "passenger", referencedColumnName = "passenger_id")
+    @Column(name = "client_ticket_id")
+    private Integer clientTicketId;
+
+    @JoinColumn(name = "client", referencedColumnName = "client_id")
     @ManyToOne
     @JsonBackReference
-    private Passenger passenger;
+    private Client client;
+
     @JoinColumn(name = "ticket", referencedColumnName = "ticket_id")
     @ManyToOne
     @JsonBackReference
     private Ticket ticket;
 
-    public PassengerTicket() {
+    public ClientTicket() {
     }
 
-    public PassengerTicket(Integer passengerTicketId) {
-        this.passengerTicketId = passengerTicketId;
+    public ClientTicket(Integer clientTicketId) {
+        this.clientTicketId = clientTicketId;
     }
 
-    public Integer getPassengerTicketId() {
-        return passengerTicketId;
+    public Integer getClientTicketId() {
+        return clientTicketId;
     }
 
-    public void setPassengerTicketId(Integer passengerTicketId) {
-        this.passengerTicketId = passengerTicketId;
+    public void setClientTicketId(Integer clientTicketId) {
+        this.clientTicketId = clientTicketId;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public Client getClient() {
+        return client;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Ticket getTicket() {
@@ -71,18 +74,18 @@ public class PassengerTicket implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (passengerTicketId != null ? passengerTicketId.hashCode() : 0);
+        hash += (clientTicketId != null ? clientTicketId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PassengerTicket)) {
+        if (!(object instanceof ClientTicket)) {
             return false;
         }
-        PassengerTicket other = (PassengerTicket) object;
-        if ((this.passengerTicketId == null && other.passengerTicketId != null) || (this.passengerTicketId != null && !this.passengerTicketId.equals(other.passengerTicketId))) {
+        ClientTicket other = (ClientTicket) object;
+        if ((this.clientTicketId == null && other.clientTicketId != null) || (this.clientTicketId != null && !this.clientTicketId.equals(other.clientTicketId))) {
             return false;
         }
         return true;
@@ -90,7 +93,7 @@ public class PassengerTicket implements Serializable {
 
     @Override
     public String toString() {
-        return "groupproject.projectx.model.PassengerTicket[ passengerTicketId=" + passengerTicketId + " ]";
+        return "groupproject.projectx.model.ClientTicket[ clientTicketId=" + clientTicketId + " ]";
     }
 
 }

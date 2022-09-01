@@ -23,11 +23,11 @@ public class AirplaneFlight implements Serializable {
     @Basic(optional = false)
     @Column(name = "airplane_flight_id")
     private Integer airplaneFlightId;
-    
+
     @JoinColumn(name = "airplane", referencedColumnName = "airplane_id")
     @ManyToOne
     private Airplane airplane;
-    
+
     @JoinColumn(name = "flight", referencedColumnName = "flight_id")
     @ManyToOne
     private Flight flight;
@@ -87,5 +87,5 @@ public class AirplaneFlight implements Serializable {
     public String toString() {
         return "groupproject.projectx.model.AirplaneFlight[ airplaneFlightId=" + airplaneFlightId + " ]";
     }
-    
+
 }

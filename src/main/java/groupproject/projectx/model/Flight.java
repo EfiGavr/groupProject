@@ -2,7 +2,7 @@ package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,8 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -23,8 +21,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "flight")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Flight.findAll", query = "SELECT f FROM Flight f")})
+        @NamedQuery(name = "Flight.findAll", query = "SELECT f FROM Flight f")})
 public class Flight implements Serializable {
+
+    @OneToMany(mappedBy = "flight")
+    private Set<ClientFlight> clientFlightSet;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "flightTicketId")
+    private Set<Ticket> ticketSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,18 +37,14 @@ public class Flight implements Serializable {
     @Basic(optional = false)
     @Column(name = "flight_id")
     private Integer flightId;
-    
+
     @Column(name = "departure")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departure;
-    
+    private LocalDateTime departure;
+
     @Column(name = "arrival")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date arrival;
-    
-    @JsonManagedReference
-    @OneToMany(mappedBy = "flightTicketId")
-    private Set<Ticket> ticketSet;
+    private LocalDateTime arrival;
+
+
 
     public Flight() {
     }
@@ -60,29 +61,20 @@ public class Flight implements Serializable {
         this.flightId = flightId;
     }
 
-    public Date getDeparture() {
+    public LocalDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Date departure) {
+    public void setDeparture(LocalDateTime departure) {
         this.departure = departure;
     }
 
-    public Date getArrival() {
+    public LocalDateTime getArrival() {
         return arrival;
     }
 
-    public void setArrival(Date arrival) {
+    public void setArrival(LocalDateTime arrival) {
         this.arrival = arrival;
-    }
-
-    @XmlTransient
-    public Set<Ticket> getTicketSet() {
-        return ticketSet;
-    }
-
-    public void setTicketSet(Set<Ticket> ticketSet) {
-        this.ticketSet = ticketSet;
     }
 
     @Override
@@ -109,5 +101,23 @@ public class Flight implements Serializable {
     public String toString() {
         return "groupproject.projectx.model.Flight[ flightId=" + flightId + " ]";
     }
-    
+
+    @XmlTransient
+    public Set<ClientFlight> getClientFlightSet() {
+        return clientFlightSet;
+    }
+
+    public void setClientFlightSet(Set<ClientFlight> clientFlightSet) {
+        this.clientFlightSet = clientFlightSet;
+    }
+
+    @XmlTransient
+    public Set<Ticket> getTicketSet() {
+        return ticketSet;
+    }
+
+    public void setTicketSet(Set<Ticket> ticketSet) {
+        this.ticketSet = ticketSet;
+    }
+
 }

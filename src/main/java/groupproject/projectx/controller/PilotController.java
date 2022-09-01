@@ -1,26 +1,34 @@
 package groupproject.projectx.controller;
-//@RestController("/")
 
-import groupproject.projectx.model.Flight;
-import groupproject.projectx.repository.FlightRepository;
+import groupproject.projectx.model.Pilot;
+import groupproject.projectx.repository.PilotRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/pilots")
 public class PilotController {
 
-//    @Autowired
-//    FlightRepository flightRepository;
-//
-//    @GetMapping("/test")
-//    public List<Flight> getAllFlights() {
-//        return flightRepository.findAll();
-//    }
-//
-//    @GetMapping(value = "/test2", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> test() {
-//        return ResponseEntity.ok("hello");
-//    }
+    @Autowired
+    PilotRepository pilotRepository;
+
+    @GetMapping("/allpilots")
+    public ResponseEntity<List<Pilot>> getAllPilots() {
+        List<Pilot> allPilots = new ArrayList();
+        try {
+            allPilots = pilotRepository.findAll();
+            return new ResponseEntity<>(allPilots, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(allPilots, HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
 }
+

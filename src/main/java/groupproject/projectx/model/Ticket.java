@@ -1,4 +1,3 @@
-
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "ticket")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t")})
+        @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t")})
 public class Ticket implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,19 +33,19 @@ public class Ticket implements Serializable {
     @Basic(optional = false)
     @Column(name = "ticket_id")
     private Integer ticketId;
-    
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "fare")
     private BigDecimal fare;
-    
+
     @JoinColumn(name = "flight_ticket_id", referencedColumnName = "flight_id")
     @ManyToOne
     @JsonBackReference
     private Flight flightTicketId;
-    
+
     @OneToMany(mappedBy = "ticket")
     @JsonManagedReference
-    private Set<PassengerTicket> passengerTicketSet;
+    private Set<ClientTicket> clientTicketSet;
 
     public Ticket() {
     }
@@ -80,12 +79,12 @@ public class Ticket implements Serializable {
     }
 
     @XmlTransient
-    public Set<PassengerTicket> getPassengerTicketSet() {
-        return passengerTicketSet;
+    public Set<ClientTicket> getClientTicketSet() {
+        return clientTicketSet;
     }
 
-    public void setPassengerTicketSet(Set<PassengerTicket> passengerTicketSet) {
-        this.passengerTicketSet = passengerTicketSet;
+    public void setClientTicketSet(Set<ClientTicket> clientTicketSet) {
+        this.clientTicketSet = clientTicketSet;
     }
 
     @Override
@@ -112,5 +111,6 @@ public class Ticket implements Serializable {
     public String toString() {
         return "groupproject.projectx.model.Ticket[ ticketId=" + ticketId + " ]";
     }
-    
+
 }
+

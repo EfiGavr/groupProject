@@ -4,13 +4,13 @@
  */
 package groupproject.projectx.repository;
 
-import groupproject.projectx.model.Passenger;
+import groupproject.projectx.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author dream
  */
-public interface PassengerRepository extends JpaRepository<Passenger,Integer>{
+public interface ClientRepository extends JpaRepository<Client,Integer>{
     
 }

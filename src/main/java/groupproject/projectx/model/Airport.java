@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "airport")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Airport.findAll", query = "SELECT a FROM Airport a")})
+        @NamedQuery(name = "Airport.findAll", query = "SELECT a FROM Airport a")})
 public class Airport implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,23 +31,23 @@ public class Airport implements Serializable {
     @Basic(optional = false)
     @Column(name = "airport_id")
     private Integer airportId;
-    
+
     @Size(max = 45)
     @Column(name = "country")
     private String country;
-    
+
     @Size(max = 45)
     @Column(name = "city")
     private String city;
-    
+
     @Size(max = 45)
     @Column(name = "airportname")
     private String airportname;
-    
+
     @OneToMany(mappedBy = "from1")
     @JsonManagedReference
     private Set<AirportFlight> airportFlightSet;
-    
+
     @OneToMany(mappedBy = "to")
     @JsonManagedReference
     private Set<AirportFlight> airportFlightSet1;
@@ -133,5 +133,5 @@ public class Airport implements Serializable {
     public String toString() {
         return "groupproject.projectx.model.Airport[ airportId=" + airportId + " ]";
     }
-    
+
 }
