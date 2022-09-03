@@ -5,6 +5,7 @@
 package groupproject.projectx.repository;
 
 import groupproject.projectx.model.Ticket;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author dream
  */
 public interface TicketRepository extends JpaRepository<Ticket,Integer>{
+    
+     Optional<Ticket> findById(Integer id);
     
 }
