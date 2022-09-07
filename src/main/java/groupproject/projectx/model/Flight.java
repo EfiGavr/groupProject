@@ -1,6 +1,7 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -24,13 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "Flight.findAll", query = "SELECT f FROM Flight f")})
 public class Flight implements Serializable {
 
-    @OneToMany(mappedBy = "flight")
-    private Set<ClientFlight> clientFlightSet;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "flightTicketId")
-    private Set<Ticket> ticketSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +32,18 @@ public class Flight implements Serializable {
     @Column(name = "flight_id")
     private Integer flightId;
 
+    @OneToMany(mappedBy = "flight")
+    private Set<ClientFlight> clientFlightSet;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "flightTicketId")
+    private Set<Ticket> ticketSet;
+
     @Column(name = "departure")
     private LocalDateTime departure;
 
     @Column(name = "arrival")
     private LocalDateTime arrival;
-
 
 
     public Flight() {
