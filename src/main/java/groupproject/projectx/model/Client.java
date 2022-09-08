@@ -1,5 +1,6 @@
 package groupproject.projectx.model;
 
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Set;
@@ -21,6 +22,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "client")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c")})
@@ -59,65 +63,14 @@ public class Client implements Serializable {
     private Set<ClientFlight> clientFlightSet;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
-    private Members members;
+    private Member members;
 
     @OneToMany(mappedBy = "client")
     @JsonManagedReference
     private Set<ClientTicket> clientTicketSet;
 
-    public Client() {
-    }
-
     public Client(Integer clientId) {
         this.clientId = clientId;
-    }
-
-    public Integer getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Integer clientId) {
-        this.clientId = clientId;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     @XmlTransient
@@ -129,11 +82,11 @@ public class Client implements Serializable {
         this.clientFlightSet = clientFlightSet;
     }
 
-    public Members getMembers() {
+    public Member getMembers() {
         return members;
     }
 
-    public void setMembers(Members members) {
+    public void setMembers(Member members) {
         this.members = members;
     }
 
@@ -144,31 +97,6 @@ public class Client implements Serializable {
 
     public void setClientTicketSet(Set<ClientTicket> clientTicketSet) {
         this.clientTicketSet = clientTicketSet;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (clientId != null ? clientId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Client)) {
-            return false;
-        }
-        Client other = (Client) object;
-        if ((this.clientId == null && other.clientId != null) || (this.clientId != null && !this.clientId.equals(other.clientId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.Client[ clientId=" + clientId + " ]";
     }
 
 }
