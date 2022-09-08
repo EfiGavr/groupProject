@@ -1,6 +1,5 @@
 package groupproject.projectx.controller;
 
-import groupproject.projectx.dtos.AirportDto;
 import groupproject.projectx.dtos.GenericResponse;
 import groupproject.projectx.dtos.PilotDto;
 
@@ -11,7 +10,6 @@ import groupproject.projectx.dtos.PilotFlightDto;
 import groupproject.projectx.services.PilotFlightService;
 import groupproject.projectx.services.PilotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -125,9 +123,6 @@ public class PilotController {
             pilotService.createPilot(pilotDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Pilot Successfully Created", null));
         } catch (Exception ex) {
-            if (ex instanceof EntityNotFoundException) {
-                return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
-            }
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Pilot", null));
         }
     }

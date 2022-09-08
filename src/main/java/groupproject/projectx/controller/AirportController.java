@@ -107,9 +107,6 @@ public class AirportController {
             airportService.createAirport(airportDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Successfully Created", null));
         } catch (Exception ex) {
-            if (ex instanceof EntityNotFoundException) {
-                return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
-            }
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Airport", null));
         }
     }

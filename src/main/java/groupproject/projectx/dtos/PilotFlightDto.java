@@ -7,14 +7,14 @@ public class PilotFlightDto {
 
     private Integer pilotFlightId;
 
-    private Flight flight;
+    private FlightDto flight;
 
-    private Pilot pilot;
+    private PilotDto pilot;
 
     public PilotFlightDto() {
     }
 
-    public PilotFlightDto(Integer pilotFlightId, Flight flight, Pilot pilot) {
+    public PilotFlightDto(Integer pilotFlightId, FlightDto flight, PilotDto pilot) {
         this.pilotFlightId = pilotFlightId;
         this.flight = flight;
         this.pilot = pilot;
@@ -28,19 +28,19 @@ public class PilotFlightDto {
         this.pilotFlightId = pilotFlightId;
     }
 
-    public Flight getFlight() {
+    public FlightDto getFlight() {
         return flight;
     }
 
-    public void setFlight(Flight flight) {
+    public void setFlight(FlightDto flight) {
         this.flight = flight;
     }
 
-    public Pilot getPilot() {
+    public PilotDto getPilot() {
         return pilot;
     }
 
-    public void setPilot(Pilot pilot) {
+    public void setPilot(PilotDto pilot) {
         this.pilot = pilot;
     }
 }

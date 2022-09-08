@@ -136,9 +136,6 @@ public class FlightController {
             flightService.createFlight(flightDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Flight Successfully Created", null));
         } catch (Exception ex) {
-            if (ex instanceof EntityNotFoundException) {
-                return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
-            }
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Flight", null));
         }
     }

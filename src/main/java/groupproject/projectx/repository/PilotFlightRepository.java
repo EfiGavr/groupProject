@@ -8,4 +8,6 @@ import java.util.List;
 public interface PilotFlightRepository extends JpaRepository<PilotFlight, Integer> {
 
     List<PilotFlight> findAllByPilot_PilotId(Integer pilotId);
+
+    List<PilotFlight> findAllByFlight_FlightId(Integer flightd);
 }

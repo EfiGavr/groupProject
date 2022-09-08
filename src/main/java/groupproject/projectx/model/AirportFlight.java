@@ -30,12 +30,12 @@ public class AirportFlight implements Serializable {
     @Column(name = "airport_flight_id")
     private Integer airportFlightId;
 
-    @JoinColumn(name = "from", referencedColumnName = "airport_id")
+    @JoinColumn(name = "[from]", referencedColumnName = "airport_id")
     @ManyToOne
     @JsonBackReference
     private Airport from1;
 
-    @JoinColumn(name = "to", referencedColumnName = "airport_id")
+    @JoinColumn(name = "[to]", referencedColumnName = "airport_id")
     @ManyToOne
     @JsonBackReference
     private Airport to;
@@ -46,6 +46,12 @@ public class AirportFlight implements Serializable {
     private Flight flight;
 
     public AirportFlight() {
+    }
+
+    public AirportFlight(Airport from1, Airport to, Flight flight) {
+        this.from1 = from1;
+        this.to = to;
+        this.flight = flight;
     }
 
     public AirportFlight(Integer airportFlightId) {
