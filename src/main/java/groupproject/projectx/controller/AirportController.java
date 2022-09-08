@@ -25,7 +25,7 @@ public class AirportController {
 
     @GetMapping("/allAirports")
     public ResponseEntity<GenericResponse> getAllAirports() {
-        List<AirportDto> airports = new ArrayList<>();
+        List<AirportDto> airports;
         try {
             airports = airportService.getAllAirports();
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport List Found", airports));
@@ -40,7 +40,8 @@ public class AirportController {
     @GetMapping("/airport/{id}")
     public ResponseEntity<GenericResponse> getAirportById(
             @PathVariable("id") Integer airportId) {
-        AirportDto airport = new AirportDto();
+        new AirportDto();
+        AirportDto airport;
         try {
             airport = airportService.getAirportById(airportId);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Found", airport));
@@ -55,7 +56,7 @@ public class AirportController {
     @PostMapping("/country")
     public ResponseEntity<GenericResponse> getAirportsByCountryName(
             @RequestParam("country") String country) {
-        List<AirportDto> airportDtos = new ArrayList<>();
+        List<AirportDto> airportDtos;
         try {
             airportDtos = airportService.getAirportsByCountry(country);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Found", airportDtos));
@@ -70,10 +71,10 @@ public class AirportController {
     @PostMapping("/city")
     public ResponseEntity<GenericResponse> getAirportsByCityName(
             @RequestParam("city") String city) {
-        List<AirportDto> airportDtos = new ArrayList<>();
+        List<AirportDto> airportDtoList = new ArrayList<>();
         try {
-            airportDtos = airportService.getAirportsByCity(city);
-            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Found", airportDtos));
+            airportDtoList = airportService.getAirportsByCity(city);
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Found", airportDtoList));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
@@ -85,10 +86,10 @@ public class AirportController {
     @PostMapping("/airportname")
     public ResponseEntity<GenericResponse> getAirportsByAirportName(
             @RequestParam("airportname") String airportname) {
-        List<AirportDto> airportDtos = new ArrayList<>();
+        List<AirportDto> airportList;
         try {
-            airportDtos = airportService.getAirportsByAirportname(airportname);
-            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Found", airportDtos));
+            airportList = airportService.getAirportsByAirportname(airportname);
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Found", airportList));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
@@ -117,7 +118,6 @@ public class AirportController {
     public ResponseEntity<GenericResponse> deleteAirport(
             @RequestBody AirportDto airportDto) {
         try {
-//             airportDto = airportService.getAirportById(airportId);
             airportService.deleteAirport(airportDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Successfully Deleted", null));
         } catch (Exception ex) {
@@ -134,7 +134,7 @@ public class AirportController {
     public ResponseEntity<GenericResponse> updateAirport2(
             @RequestBody AirportDto airportDto) {
         try {
-            AirportDto airportDtotest = airportService.updateAirport(airportDto);
+            airportService.updateAirport(airportDto);
             return ResponseEntity.ok().body(new GenericResponse("succeed", "Airport Successfully Updated", airportDto));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {

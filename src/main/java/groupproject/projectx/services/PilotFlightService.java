@@ -21,16 +21,16 @@ public class PilotFlightService {
     ModelMapper modelMapper;
 
 
-    public List<PilotFlightDto> getPilotFlightsFromPilotId(Integer pilotId){
+    public List<PilotFlightDto> getPilotFlightsFromPilotId(Integer pilotId) {
         List<PilotFlightDto> pilotFlightDtos = convertToDtoList(pilotFlightRepository.findAllByPilot_PilotId(pilotId));
         return pilotFlightDtos;
     }
 
-    public PilotFlightDto convertToDto(PilotFlight pilotFlight){
+    public PilotFlightDto convertToDto(PilotFlight pilotFlight) {
         return modelMapper.map(pilotFlight, PilotFlightDto.class);
     }
 
-    public List<PilotFlightDto> convertToDtoList(List<PilotFlight> pilotFlights){
+    public List<PilotFlightDto> convertToDtoList(List<PilotFlight> pilotFlights) {
         TypeToken<List<AirportFlightDto>> typeToken = new TypeToken<>() {
         };
         return modelMapper.map(pilotFlights, typeToken.getType());

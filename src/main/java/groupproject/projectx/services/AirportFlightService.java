@@ -8,6 +8,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class AirportFlightService {
 
     @Autowired
     private AirportFlightRepository airportFlightRepository;
+
 
     public List<AirportFlightDto> getAllAirportFligths() {
         List<AirportFlight> airportFlights = airportFlightRepository.findAll();
@@ -74,10 +76,22 @@ public class AirportFlightService {
         return convertToDtoList(airportFlights);
     }
 
-    public List<AirportFlightDto> getAirportFlightsByFromOrToAirportId(Integer airportId){
+    public List<AirportFlightDto> getAirportFlightsByFromOrToAirportId(Integer airportId) {
         List<AirportFlight> airportFlights = airportFlightRepository.findAllByFrom1_AirportIdOrTo_AirportId(airportId, airportId);
         return convertToDtoList(airportFlights);
     }
+
+    public void deleteAirportFlightWhichConnectWithFlightToDelete(Integer flightId) {
+        List<AirportFlight> airportFlights = airportFlightRepository.findAllByFlight_FlightId(flightId);
+        for (int i = 0; i < airportFlights.size(); i++) {
+            airportFlightRepository.deleteById((airportFlights.get(i)).getAirportFlightId());
+        }
+    }
+
+//    public List<AirportFlightDto> getAirportFlightByFlightId(Integer flightId){
+//        List<AirportFlight> airportFlights = airportFlightRepository.findAllByFlight_FlightId(flightId);
+//        return convertToDtoList(airportFlights);
+//    }
 
     public AirportFlightDto convertToAirportFlightDto(AirportFlight airportFlight) {
         return modelMapper.map(airportFlight, AirportFlightDto.class);

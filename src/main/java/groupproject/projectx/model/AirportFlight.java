@@ -1,6 +1,7 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;

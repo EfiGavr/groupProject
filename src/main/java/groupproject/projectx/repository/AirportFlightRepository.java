@@ -27,5 +27,7 @@ public interface AirportFlightRepository extends JpaRepository<AirportFlight, In
 
     List<AirportFlight> findAllAirportFlightsByFlight_DepartureBetweenAndFrom1_CountryIsAndTo_CountryIs(LocalDateTime departureStartDate, LocalDateTime departureEndDate, String countryDeparture, String countryArrival);
 
+    List<AirportFlight> findAllByFlight_FlightId(Integer flightId);
+
 
 }

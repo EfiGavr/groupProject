@@ -13,6 +13,8 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class FlightService {
 
@@ -23,8 +25,7 @@ public class FlightService {
     FlightRepository flightRepository;
 
     public List<FlightDto> getAllFlights() {
-        List<Flight> flights = flightRepository.findAll();
-        return convertToDtoList(flights);
+        return convertToDtoList(flightRepository.findAll());
     }
 
     public FlightDto getFlightById(Integer flightId) {
@@ -36,38 +37,74 @@ public class FlightService {
             Flight flight = flightOptional.get();
             //convert it to flight dto  and return it
             return convertToFlightDto(flight);
+        } else {
+            throw new EntityNotFoundException("Flight Not Found");
         }
-        //TODO throw Exception
-        return new FlightDto();
     }
 
-//    public void insertFlight(Flight flight) {
-//        flightRepository.save(flight);
-//    }
-
     public List<FlightDto> findByDepartureByDayRange(LocalDateTime departure) {
-        List<Flight> flights = flightRepository.findAllByDepartureBetween(departure, departure.plusHours(24).minusSeconds(1));
-        return convertToDtoList(flights);
+        List<FlightDto> flights = convertToDtoList(flightRepository.findAllByDepartureBetween(departure, departure.plusHours(24).minusSeconds(1)));
+        if (flights.isEmpty()) {
+            throw new EntityNotFoundException("No Flights Found For This Departure Date");
+        } else {
+            return flights;
+        }
     }
 
     public List<FlightDto> findByDepartureBetweenTwoDates(LocalDateTime departureStartDate, LocalDateTime departureEndDate) {
-        List<Flight> flights = flightRepository.findAllByDepartureBetween(departureStartDate, departureEndDate.plusHours(24).minusSeconds(1));
-        return convertToDtoList(flights);
+        List<FlightDto> flights = convertToDtoList(flightRepository.findAllByDepartureBetween(departureStartDate, departureEndDate.plusHours(24).minusSeconds(1)));
+        if (flights.isEmpty()) {
+            throw new EntityNotFoundException("No Flights Found For These Departure Dates");
+        } else {
+            return flights;
+        }
     }
 
     public List<FlightDto> findByArrivalByDayRange(LocalDateTime arrival) {
-        List<Flight> flights = flightRepository.findAllByArrivalBetween(arrival, arrival.plusHours(24).minusSeconds(1));
-        return convertToDtoList(flights);
+        List<FlightDto> flights = convertToDtoList(flightRepository.findAllByArrivalBetween(arrival, arrival.plusHours(24).minusSeconds(1)));
+        if (flights.isEmpty()) {
+            throw new EntityNotFoundException("No Flights Found For This Arrival Date");
+        } else {
+            return flights;
+        }
     }
 
     public List<FlightDto> findByArrivalBetweenTwoDates(LocalDateTime arrivalStartDate, LocalDateTime arrivalEndDate) {
-        List<Flight> flights = flightRepository.findAllByArrivalBetween(arrivalStartDate, arrivalEndDate.plusHours(24).minusSeconds(1));
-        return convertToDtoList(flights);
+        List<FlightDto> flights = convertToDtoList(flightRepository.findAllByArrivalBetween(arrivalStartDate, arrivalEndDate.plusHours(24).minusSeconds(1)));
+        if (flights.isEmpty()) {
+            throw new EntityNotFoundException("No Flights Found For These Arrival Dates");
+        } else {
+            return flights;
+        }
+    }
+
+    public void createFlight(FlightDto flightDto) {
+        Flight newFlight = convertToFlight(flightDto);
+        flightRepository.save(newFlight);
+    }
+
+    public void deleteFlight(FlightDto flightDto) {
+        flightRepository.deleteById(flightDto.getFlightId());
+    }
+
+    public FlightDto updateFlight(FlightDto updatedFlightDto) {
+        boolean isFlightExist = flightRepository.existsById(updatedFlightDto.getFlightId());
+        if (isFlightExist) {
+            Flight flight = convertToFlight(updatedFlightDto);
+            flightRepository.save(flight);
+            return convertToFlightDto(flight);
+        } else {
+            throw new EntityNotFoundException("Flight Not Found");
+        }
     }
 
 
     public FlightDto convertToFlightDto(Flight flight) {
         return modelMapper.map(flight, FlightDto.class);
+    }
+
+    public Flight convertToFlight(FlightDto flightDto) {
+        return modelMapper.map(flightDto, Flight.class);
     }
 
     public List<FlightDto> convertToDtoList(List<Flight> flights) {

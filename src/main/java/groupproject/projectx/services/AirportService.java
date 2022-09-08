@@ -74,8 +74,8 @@ public class AirportService {
     }
 
     public AirportDto updateAirport(AirportDto updatedAirportDto) {
-        Optional<Airport> airportOptional = airportRepository.findById(updatedAirportDto.getAirportId());
-        if (airportOptional.isPresent()) {
+        boolean isAirportExist = airportRepository.existsById(updatedAirportDto.getAirportId());
+        if (isAirportExist) {
             Airport airport = convertToAirport(updatedAirportDto);
             airportRepository.save(airport);
             return convertToAirportDto(airport);
