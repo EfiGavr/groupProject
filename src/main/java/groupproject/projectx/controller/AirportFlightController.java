@@ -5,7 +5,6 @@ import groupproject.projectx.dtos.GenericResponse;
 import groupproject.projectx.services.AirportFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ public class AirportFlightController {
         List<AirportFlightDto> allFlights = new ArrayList();
         try {
             allFlights = airportFlightService.getAllAirportFligths();
-            return ResponseEntity.ok().body(new GenericResponse("Succeed","List of Airport - Flights Successfully Found",allFlights));
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "List of Airport - Flights Successfully Found", allFlights));
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Airport-Flight List", null));
         }
@@ -191,7 +190,7 @@ public class AirportFlightController {
             if (ex instanceof EntityNotFoundException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
             }
-            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error While Deleting Airport-Flight", null));
+            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error While Updating Airport-Flight", null));
         }
     }
 }
