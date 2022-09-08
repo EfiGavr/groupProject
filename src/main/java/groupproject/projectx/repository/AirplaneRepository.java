@@ -5,6 +5,7 @@
 package groupproject.projectx.repository;
 
 import groupproject.projectx.model.Airplane;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,4 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author dream
  */
 public interface AirplaneRepository extends JpaRepository<Airplane,Integer>{
+    
+    List<Airplane> findByManufactureContaining(String manufacture);
+    List<Airplane> findByModelNumber(String modelNumber);
+    List<Airplane> findByCapacity(int capacity);
 }

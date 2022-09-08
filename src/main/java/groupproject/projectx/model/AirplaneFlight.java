@@ -1,5 +1,6 @@
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ public class AirplaneFlight implements Serializable {
 
     @JoinColumn(name = "airplane", referencedColumnName = "airplane_id")
     @ManyToOne
+    @JsonBackReference
     private Airplane airplane;
 
     @JoinColumn(name = "flight", referencedColumnName = "flight_id")

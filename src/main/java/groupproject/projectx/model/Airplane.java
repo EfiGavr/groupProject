@@ -1,6 +1,7 @@
 
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -28,6 +29,7 @@ public class Airplane implements Serializable {
     @Column(name = "model_number")
     private String modelNumber;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "airplane")
     private Set<AirplaneFlight> airplaneFlightSet;
 
