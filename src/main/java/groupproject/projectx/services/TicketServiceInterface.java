@@ -5,10 +5,15 @@
  */
 package groupproject.projectx.services;
 
+import groupproject.projectx.model.Ticket;
+import java.util.Optional;
+
 /**
  *
  * @author Vaggelis
  */
 public interface TicketServiceInterface {
+    
+       Optional<Ticket> findById(Integer id);
     
 }
