@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NoArgsConstructor
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Members.findAll", query = "SELECT m FROM Members m")})
+        @NamedQuery(name = "Member.findAll", query = "SELECT m FROM Member m")})
 public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
