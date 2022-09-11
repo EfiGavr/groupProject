@@ -2,6 +2,10 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "client_flight")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "ClientFlight.findAll", query = "SELECT c FROM ClientFlight c")})
@@ -39,61 +46,8 @@ public class ClientFlight implements Serializable {
     @ManyToOne
     @JsonBackReference
     private Flight flight;
-
-    public ClientFlight() {
-    }
-
     public ClientFlight(Integer clientFlightId) {
         this.clientFlightId = clientFlightId;
-    }
-
-    public Integer getClientFlightId() {
-        return clientFlightId;
-    }
-
-    public void setClientFlightId(Integer clientFlightId) {
-        this.clientFlightId = clientFlightId;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (clientFlightId != null ? clientFlightId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ClientFlight)) {
-            return false;
-        }
-        ClientFlight other = (ClientFlight) object;
-        if ((this.clientFlightId == null && other.clientFlightId != null) || (this.clientFlightId != null && !this.clientFlightId.equals(other.clientFlightId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.ClientFlight[ clientFlightId=" + clientFlightId + " ]";
     }
 
 }

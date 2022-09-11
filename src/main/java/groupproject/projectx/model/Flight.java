@@ -1,6 +1,9 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,6 +23,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "flight")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Flight.findAll", query = "SELECT f FROM Flight f")})
@@ -45,61 +51,8 @@ public class Flight implements Serializable {
     @Column(name = "arrival")
     private LocalDateTime arrival;
 
-
-    public Flight() {
-    }
-
     public Flight(Integer flightId) {
         this.flightId = flightId;
-    }
-
-    public Integer getFlightId() {
-        return flightId;
-    }
-
-    public void setFlightId(Integer flightId) {
-        this.flightId = flightId;
-    }
-
-    public LocalDateTime getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(LocalDateTime departure) {
-        this.departure = departure;
-    }
-
-    public LocalDateTime getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(LocalDateTime arrival) {
-        this.arrival = arrival;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (flightId != null ? flightId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Flight)) {
-            return false;
-        }
-        Flight other = (Flight) object;
-        if ((this.flightId == null && other.flightId != null) || (this.flightId != null && !this.flightId.equals(other.flightId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.Flight[ flightId=" + flightId + " ]";
     }
 
     @XmlTransient

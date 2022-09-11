@@ -3,6 +3,10 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -21,6 +25,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "pilot")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Pilot.findAll", query = "SELECT p FROM Pilot p")})
@@ -52,37 +59,8 @@ public class Pilot implements Serializable {
     @Column(name = "licence_number")
     private Integer licenceNumber;
 
-
-    public Pilot() {
-    }
-
     public Pilot(Integer pilotId) {
         this.pilotId = pilotId;
-    }
-
-    public Integer getPilotId() {
-        return pilotId;
-    }
-
-    public void setPilotId(Integer pilotId) {
-        this.pilotId = pilotId;
-    }
-
-    public Integer getLicenceNumber() {
-        return licenceNumber;
-    }
-
-    public void setLicenceNumber(Integer licenceNumber) {
-        this.licenceNumber = licenceNumber;
-    }
-
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
     }
 
     @XmlTransient
@@ -94,44 +72,4 @@ public class Pilot implements Serializable {
         this.pilotFlightSet = pilotFlightSet;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (pilotId != null ? pilotId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pilot)) {
-            return false;
-        }
-        Pilot other = (Pilot) object;
-        if ((this.pilotId == null && other.pilotId != null) || (this.pilotId != null && !this.pilotId.equals(other.pilotId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.Pilot[ pilotId=" + pilotId + " ]";
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
 }

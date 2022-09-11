@@ -1,6 +1,10 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "airplane_flight")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 public class AirplaneFlight implements Serializable {
 
@@ -34,60 +41,9 @@ public class AirplaneFlight implements Serializable {
     @ManyToOne
     private Flight flight;
 
-    public AirplaneFlight() {
-    }
-
     public AirplaneFlight(Integer airplaneFlightId) {
         this.airplaneFlightId = airplaneFlightId;
     }
 
-    public Integer getAirplaneFlightId() {
-        return airplaneFlightId;
-    }
-
-    public void setAirplaneFlightId(Integer airplaneFlightId) {
-        this.airplaneFlightId = airplaneFlightId;
-    }
-
-    public Airplane getAirplane() {
-        return airplane;
-    }
-
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (airplaneFlightId != null ? airplaneFlightId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AirplaneFlight)) {
-            return false;
-        }
-        AirplaneFlight other = (AirplaneFlight) object;
-        if ((this.airplaneFlightId == null && other.airplaneFlightId != null) || (this.airplaneFlightId != null && !this.airplaneFlightId.equals(other.airplaneFlightId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.AirplaneFlight[ airplaneFlightId=" + airplaneFlightId + " ]";
-    }
 
 }

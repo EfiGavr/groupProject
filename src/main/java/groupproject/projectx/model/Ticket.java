@@ -2,6 +2,10 @@ package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -22,6 +26,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "ticket")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t")})
@@ -47,35 +54,8 @@ public class Ticket implements Serializable {
     @JsonManagedReference
     private Set<ClientTicket> clientTicketSet;
 
-    public Ticket() {
-    }
-
     public Ticket(Integer ticketId) {
         this.ticketId = ticketId;
-    }
-
-    public Integer getTicketId() {
-        return ticketId;
-    }
-
-    public void setTicketId(Integer ticketId) {
-        this.ticketId = ticketId;
-    }
-
-    public BigDecimal getFare() {
-        return fare;
-    }
-
-    public void setFare(BigDecimal fare) {
-        this.fare = fare;
-    }
-
-    public Flight getFlightTicketId() {
-        return flightTicketId;
-    }
-
-    public void setFlightTicketId(Flight flightTicketId) {
-        this.flightTicketId = flightTicketId;
     }
 
     @XmlTransient
@@ -85,31 +65,6 @@ public class Ticket implements Serializable {
 
     public void setClientTicketSet(Set<ClientTicket> clientTicketSet) {
         this.clientTicketSet = clientTicketSet;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (ticketId != null ? ticketId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ticket)) {
-            return false;
-        }
-        Ticket other = (Ticket) object;
-        if ((this.ticketId == null && other.ticketId != null) || (this.ticketId != null && !this.ticketId.equals(other.ticketId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.Ticket[ ticketId=" + ticketId + " ]";
     }
 
 }

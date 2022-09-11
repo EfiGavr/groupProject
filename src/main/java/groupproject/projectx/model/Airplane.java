@@ -2,6 +2,10 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -18,6 +22,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "airplane")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 public class Airplane implements Serializable {
 
@@ -44,36 +51,8 @@ public class Airplane implements Serializable {
     private Integer capacity;
 
 
-    public Airplane() {
-    }
-
     public Airplane(Integer airplaneId) {
         this.airplaneId = airplaneId;
-    }
-
-    public Integer getAirplaneId() {
-        return airplaneId;
-    }
-
-    public void setAirplaneId(Integer airplaneId) {
-        this.airplaneId = airplaneId;
-    }
-
-
-    public String getModelNumber() {
-        return modelNumber;
-    }
-
-    public void setModelNumber(String modelNumber) {
-        this.modelNumber = modelNumber;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
     }
 
     @XmlTransient
@@ -83,39 +62,6 @@ public class Airplane implements Serializable {
 
     public void setAirplaneFlightSet(Set<AirplaneFlight> airplaneFlightSet) {
         this.airplaneFlightSet = airplaneFlightSet;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (airplaneId != null ? airplaneId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Airplane)) {
-            return false;
-        }
-        Airplane other = (Airplane) object;
-        if ((this.airplaneId == null && other.airplaneId != null) || (this.airplaneId != null && !this.airplaneId.equals(other.airplaneId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.Airplane[ airplaneId=" + airplaneId + " ]";
-    }
-
-    public String getManufacture() {
-        return manufacture;
-    }
-
-    public void setManufacture(String manufacture) {
-        this.manufacture = manufacture;
     }
 
 }

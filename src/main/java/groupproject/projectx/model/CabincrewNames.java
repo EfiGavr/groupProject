@@ -1,5 +1,9 @@
 package groupproject.projectx.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +18,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "cabincrew_names")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @XmlRootElement
 public class CabincrewNames implements Serializable {
 
@@ -36,68 +43,8 @@ public class CabincrewNames implements Serializable {
     @OneToOne(optional = false)
     private Cabincrew cabincrew;
 
-    public CabincrewNames() {
-    }
-
     public CabincrewNames(Integer cabincrewNamesId) {
         this.cabincrewNamesId = cabincrewNamesId;
-    }
-
-    public Integer getCabincrewNamesId() {
-        return cabincrewNamesId;
-    }
-
-    public void setCabincrewNamesId(Integer cabincrewNamesId) {
-        this.cabincrewNamesId = cabincrewNamesId;
-    }
-
-    public String getCabincrewFname() {
-        return cabincrewFname;
-    }
-
-    public void setCabincrewFname(String cabincrewFname) {
-        this.cabincrewFname = cabincrewFname;
-    }
-
-    public String getCabincrewLname() {
-        return cabincrewLname;
-    }
-
-    public void setCabincrewLname(String cabincrewLname) {
-        this.cabincrewLname = cabincrewLname;
-    }
-
-    public Cabincrew getCabincrew() {
-        return cabincrew;
-    }
-
-    public void setCabincrew(Cabincrew cabincrew) {
-        this.cabincrew = cabincrew;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (cabincrewNamesId != null ? cabincrewNamesId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CabincrewNames)) {
-            return false;
-        }
-        CabincrewNames other = (CabincrewNames) object;
-        if ((this.cabincrewNamesId == null && other.cabincrewNamesId != null) || (this.cabincrewNamesId != null && !this.cabincrewNamesId.equals(other.cabincrewNamesId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "groupproject.projectx.model.CabincrewNames[ cabincrewNamesId=" + cabincrewNamesId + " ]";
     }
 
 }

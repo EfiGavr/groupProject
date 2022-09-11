@@ -67,10 +67,4 @@ public class Airport implements Serializable {
     public Set<AirportFlight> getAirportFlightSet() {
         return airportFlightSet;
     }
-
-    @XmlTransient
-    public Set<AirportFlight> getAirportFlightSet1() {
-        return airportFlightSet1;
-    }
-
 }
