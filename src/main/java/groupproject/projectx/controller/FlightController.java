@@ -19,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/flights")
 public class FlightController {
