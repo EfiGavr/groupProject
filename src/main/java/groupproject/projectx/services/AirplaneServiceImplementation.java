@@ -4,11 +4,17 @@
  */
 package groupproject.projectx.services;
 
+import groupproject.projectx.dtos.AirplaneDto;
+import groupproject.projectx.dtos.GenericResponse;
 import groupproject.projectx.exception.ResourceNotFoundException;
 import groupproject.projectx.model.Airplane;
 import groupproject.projectx.repository.AirplaneRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,69 +26,105 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AirplaneServiceImplementation implements AirplaneService {
-
+    
+    @Autowired
+    ModelMapper modelMapper;
+    
     @Autowired
     AirplaneRepository airplaneRepository;
-
+    
     @Override
-    public ResponseEntity<List<Airplane>> getAllAirplanes() {
-        List<Airplane> airplanes = airplaneRepository.findAll();
-        if (airplanes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(airplanes, HttpStatus.OK);
+    public List<AirplaneDto> getAllAirplanes() {
+        return convertToDtoList(airplaneRepository.findAll());
     }
 
     @Override
-    public ResponseEntity<Airplane> getAirplaneById(int id) {
-        Airplane airplane = airplaneRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException("Not found airplane with id = " + id));
-                
-        return new ResponseEntity<>(airplane, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<Airplane>> getAirplaneByManufacture(String manufacture) {
-        List<Airplane> airplanes = new ArrayList<Airplane>();
-
-        if (manufacture == null) {
-            airplaneRepository.findAll().forEach(airplanes::add);
+    public AirplaneDto getAirplaneById(Integer id) {
+         //get optional airplane
+        Optional<Airplane> airplaneOptional = airplaneRepository.findById(id);
+        //if it exists
+        if (airplaneOptional.isPresent()) {
+            // get this airplane
+            Airplane airplane = airplaneOptional.get();
+            //convert it to airplane dto  and return it
+            return convertToAirplaneDto(airplane);
         } else {
-            airplaneRepository.findByManufactureContaining(manufacture).forEach(airplanes::add);
+            throw new EntityNotFoundException("Airplane Not Found");
         }
-        if (airplanes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(airplanes, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Airplane>> getAirplaneByModelNumber(String modelNumber) {
-        List<Airplane> airplanes = new ArrayList<Airplane>();
-
-        if (modelNumber == null) {
-            airplaneRepository.findAll().forEach(airplanes::add);
-        } else {
-            airplaneRepository.findByModelNumber(modelNumber).forEach(airplanes::add);
-        }
+    public List<AirplaneDto> getAirplanesByManufacture(String manufacture) {
+        List<AirplaneDto> airplanes = convertToDtoList(airplaneRepository.findByManufactureContaining(manufacture));
         if (airplanes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new EntityNotFoundException("No Airplanes Found With This Manufacture");
+        } else {
+            return airplanes;
         }
-        return new ResponseEntity<>(airplanes, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Airplane>> getAirplaneByCapacity(int capacity) {
-        List<Airplane> airplanes = new ArrayList<Airplane>();
-
-        if (capacity == 0) {
-            airplaneRepository.findAll().forEach(airplanes::add);
-        } else {
-            airplaneRepository.findByCapacity(capacity).forEach(airplanes::add);
-        }
+    public List<AirplaneDto> getAirplanesByModelNumber(String modelNumber) {
+        List<AirplaneDto> airplanes = convertToDtoList(airplaneRepository.findByModelNumber(modelNumber));
         if (airplanes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new EntityNotFoundException("No Airplanes Found With This Model Number");
+        } else {
+            return airplanes;
         }
-        return new ResponseEntity<>(airplanes, HttpStatus.OK);
     }
-}
+
+    @Override
+    public List<AirplaneDto> getAirplanesByCapacity(Integer capacity) {
+         List<AirplaneDto> airplanes = convertToDtoList(airplaneRepository.findByCapacity(capacity));
+        if (airplanes.isEmpty()) {
+            throw new EntityNotFoundException("No Airplanes Found With This Capacity");
+        } else {
+            return airplanes;
+        }
+    }
+
+    @Override
+    public void createAirplane(AirplaneDto airplaneDto) {
+        Airplane newAirplane = convertToAirplane(airplaneDto);
+        airplaneRepository.save(newAirplane);
+    }
+
+    @Override
+    public void deleteAirplane(AirplaneDto airplaneDto) {
+        airplaneRepository.deleteById(airplaneDto.getAirplaneId());
+    }
+
+    @Override
+    public AirplaneDto updateAirplane(AirplaneDto updatedAirplaneDto) {
+         boolean isAirplaneExist = airplaneRepository.existsById(updatedAirplaneDto.getAirplaneId());
+        if (isAirplaneExist) {
+            Airplane airplane = convertToAirplane(updatedAirplaneDto);
+            airplaneRepository.save(airplane);
+            return convertToAirplaneDto(airplane);
+        } else {
+            throw new EntityNotFoundException("Airplane Not Found");
+        }
+    }
+
+    @Override
+    public AirplaneDto convertToAirplaneDto(Airplane airplane) {
+        return modelMapper.map(airplane, AirplaneDto.class);
+    }
+
+    @Override
+    public Airplane convertToAirplane(AirplaneDto airplaneDto) {
+        return modelMapper.map(airplaneDto, Airplane.class);
+    }
+
+    @Override
+    public List<AirplaneDto> convertToDtoList(List<Airplane> airplanes) {
+        TypeToken<List<AirplaneDto>> typeToken = new TypeToken<>(){
+             };
+        return modelMapper.map(airplanes, typeToken.getType());
+    }
+    }
+
+    
+
+    
+

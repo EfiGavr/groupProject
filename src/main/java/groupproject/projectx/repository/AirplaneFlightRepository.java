@@ -4,17 +4,14 @@
  */
 package groupproject.projectx.repository;
 
-import groupproject.projectx.model.Airplane;
+import groupproject.projectx.model.AirplaneFlight;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
- * @author dream
+ * @author ironm
  */
-public interface AirplaneRepository extends JpaRepository<Airplane,Integer>{
-    
-    List<Airplane> findByManufactureContaining(String manufacture);
-    List<Airplane> findByModelNumber(String modelNumber);
-    List<Airplane> findByCapacity(Integer capacity);
+public interface AirplaneFlightRepository extends JpaRepository<AirplaneFlight, Integer> {
+    List<AirplaneFlight> findAllByAirplane_AirplaneId(Integer airplaneId);
 }
