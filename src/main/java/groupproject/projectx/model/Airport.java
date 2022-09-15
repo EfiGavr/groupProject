@@ -22,7 +22,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "airport")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"airportFlightSet","airportFlightSet1"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement

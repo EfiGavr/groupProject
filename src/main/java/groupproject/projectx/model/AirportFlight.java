@@ -1,9 +1,7 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -21,7 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "airport_flight")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"from1","to","flight"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement

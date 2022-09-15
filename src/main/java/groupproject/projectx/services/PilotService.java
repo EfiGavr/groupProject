@@ -1,8 +1,6 @@
 package groupproject.projectx.services;
 
-import groupproject.projectx.dtos.AirportDto;
 import groupproject.projectx.dtos.PilotDto;
-import groupproject.projectx.model.Airport;
 import groupproject.projectx.model.Pilot;
 import groupproject.projectx.repository.PilotRepository;
 
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Service
 public class PilotService {

@@ -1,9 +1,7 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirportDto;
-import groupproject.projectx.dtos.PilotDto;
 import groupproject.projectx.model.Airport;
-import groupproject.projectx.model.Pilot;
 import groupproject.projectx.repository.AirportRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;

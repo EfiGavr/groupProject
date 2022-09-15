@@ -1,7 +1,9 @@
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -22,7 +24,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "client")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"clientTicketSet","members"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
@@ -58,29 +62,21 @@ public class Client implements Serializable {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(mappedBy = "client")
-    @JsonManagedReference
-    private Set<ClientFlight> clientFlightSet;
-
+//        @OneToMany(mappedBy = "client")
+//    @JsonManagedReference
+//    private Set<ClientFlight> clientFlightSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
     private Member members;
 
     @OneToMany(mappedBy = "client")
     @JsonManagedReference
+//    @ToString.Exclude
     private Set<ClientTicket> clientTicketSet;
 
     public Client(Integer clientId) {
         this.clientId = clientId;
     }
 
-    @XmlTransient
-    public Set<ClientFlight> getClientFlightSet() {
-        return clientFlightSet;
-    }
-
-    public void setClientFlightSet(Set<ClientFlight> clientFlightSet) {
-        this.clientFlightSet = clientFlightSet;
-    }
 
     public Member getMembers() {
         return members;

@@ -2,9 +2,7 @@ package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,7 +24,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "ticket")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"clientTicketSet"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement

@@ -1,20 +1,16 @@
 package groupproject.projectx.controller;
 
-import groupproject.projectx.dtos.AirportDto;
-import groupproject.projectx.dtos.AirportFlightDto;
+
 import groupproject.projectx.dtos.FlightDto;
 import groupproject.projectx.dtos.GenericResponse;
-import groupproject.projectx.model.Flight;
 import groupproject.projectx.services.AirportFlightService;
 import groupproject.projectx.services.FlightService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

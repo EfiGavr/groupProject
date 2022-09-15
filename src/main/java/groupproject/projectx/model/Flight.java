@@ -1,9 +1,8 @@
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,7 +22,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "flight")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"ticketSet"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
@@ -37,9 +38,6 @@ public class Flight implements Serializable {
     @Basic(optional = false)
     @Column(name = "flight_id")
     private Integer flightId;
-
-    @OneToMany(mappedBy = "flight")
-    private Set<ClientFlight> clientFlightSet;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "flightTicketId")
@@ -55,14 +53,14 @@ public class Flight implements Serializable {
         this.flightId = flightId;
     }
 
-    @XmlTransient
-    public Set<ClientFlight> getClientFlightSet() {
-        return clientFlightSet;
-    }
-
-    public void setClientFlightSet(Set<ClientFlight> clientFlightSet) {
-        this.clientFlightSet = clientFlightSet;
-    }
+//    @XmlTransient
+//    public Set<ClientFlight> getClientFlightSet() {
+//        return clientFlightSet;
+//    }
+//
+//    public void setClientFlightSet(Set<ClientFlight> clientFlightSet) {
+//        this.clientFlightSet = clientFlightSet;
+//    }
 
     @XmlTransient
     public Set<Ticket> getTicketSet() {

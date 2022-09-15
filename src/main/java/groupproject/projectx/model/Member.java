@@ -1,6 +1,9 @@
 
 package groupproject.projectx.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -18,7 +21,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "member")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"client"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
@@ -44,6 +49,8 @@ public class Member implements Serializable {
     @Column(name = "bonus")
     private Integer bonus;
 
+//    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "member_id", referencedColumnName = "client_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Client client;

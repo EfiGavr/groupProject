@@ -1,19 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package groupproject.projectx.repository;
 
 import groupproject.projectx.model.Ticket;
-import java.util.Optional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- *
- * @author dream
- */
 public interface TicketRepository extends JpaRepository<Ticket,Integer>{
+
+
+     List<Ticket> findByFare(BigDecimal fare);
+
+     List<Ticket> findByFlightTicketId_FlightId(Integer flightId);
+
+//     List<Ticket> findByClientTicketSet_ClientTicketId(Integer clientTicketId);
+//
+//     List<Ticket> findByFlightTicketId_DepartureIs(LocalDateTime departure);
+//
+//     List<Ticket> findByFlightTicketId_Arrival(LocalDateTime arrival);
     
-     Optional<Ticket> findById(Integer id);
-    
+
 }

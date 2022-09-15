@@ -20,8 +20,11 @@ public class AirportFlightController {
     @Autowired
     private AirportFlightService airportFlightService;
 
+
     @GetMapping("/allAirportFlights")
     public ResponseEntity<GenericResponse> getAllAirportFlights() {
+//        emailService.sendMailWithAttachment(from, "lenovokonk@gmail.com", "test","Welcome to Airline Company! You will recieve your tickets here with attachment !!!");
+
         List<AirportFlightDto> allFlights = new ArrayList();
         try {
             allFlights = airportFlightService.getAllAirportFligths();

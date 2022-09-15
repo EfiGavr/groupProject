@@ -1,6 +1,5 @@
 package groupproject.projectx.repository;
 
-import groupproject.projectx.dtos.AirportDto;
 import groupproject.projectx.model.Airport;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,9 +1,7 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirportFlightDto;
-import groupproject.projectx.model.Airport;
 import groupproject.projectx.model.AirportFlight;
-import groupproject.projectx.model.Flight;
 import groupproject.projectx.repository.AirportFlightRepository;
 import groupproject.projectx.repository.AirportRepository;
 import org.modelmapper.ModelMapper;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

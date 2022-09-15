@@ -1,8 +1,6 @@
 package groupproject.projectx.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -18,7 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "cabincrew_names")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"cabincrew"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement

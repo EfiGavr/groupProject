@@ -9,6 +9,9 @@ public class ClientDto {
     private String lname;
     private String role;
 
+    public ClientDto() {
+    }
+
     public ClientDto(String telephoneNumber, String email, String fname, String lname, String role) {
         this.telephoneNumber = telephoneNumber;
         this.email = email;

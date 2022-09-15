@@ -1,7 +1,12 @@
 package groupproject.projectx.dtos;
 
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+@Data
+@AllArgsConstructor
 public class FlightDto {
 
     private Integer flightId;
@@ -9,6 +14,9 @@ public class FlightDto {
     private LocalDateTime departure;
 
     private LocalDateTime arrival;
+
+    public FlightDto() {
+    }
 
     public Integer getFlightId() {
         return flightId;

@@ -1,13 +1,10 @@
 package groupproject.projectx.controller;
 
-import groupproject.projectx.dtos.AirportFlightDto;
-import groupproject.projectx.dtos.FlightDto;
+
 import groupproject.projectx.dtos.GenericResponse;
 import groupproject.projectx.dtos.PilotFlightDto;
-import groupproject.projectx.repository.PilotFlightRepository;
 import groupproject.projectx.services.PilotFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

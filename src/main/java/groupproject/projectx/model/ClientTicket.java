@@ -2,27 +2,19 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "client_ticket")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"client", "ticket"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
@@ -40,6 +32,7 @@ public class ClientTicket implements Serializable {
     @JoinColumn(name = "client", referencedColumnName = "client_id")
     @ManyToOne
     @JsonBackReference
+//    @JsonIgnoreProperties
     private Client client;
 
     @JoinColumn(name = "ticket", referencedColumnName = "ticket_id")
@@ -51,4 +44,16 @@ public class ClientTicket implements Serializable {
         this.clientTicketId = clientTicketId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ClientTicket that = (ClientTicket) o;
+        return clientTicketId != null && Objects.equals(clientTicketId, that.clientTicketId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -3,9 +3,7 @@
 package groupproject.projectx.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -25,7 +23,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "pilot")
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"pilotFlightSet"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement

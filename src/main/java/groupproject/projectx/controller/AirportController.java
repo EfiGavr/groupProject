@@ -103,7 +103,6 @@ public class AirportController {
     public ResponseEntity<GenericResponse> createNewAirport(
             @RequestBody AirportDto airportDto) {
         try {
-//            AirportDto airport = new AirportDto(country, city, airportname);
             airportService.createAirport(airportDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Successfully Created", null));
         } catch (Exception ex) {
