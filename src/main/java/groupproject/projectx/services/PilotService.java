@@ -2,6 +2,7 @@ package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.PilotDto;
 import groupproject.projectx.model.Pilot;
+import groupproject.projectx.repository.PilotFlightRepository;
 import groupproject.projectx.repository.PilotRepository;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class PilotService {
 
     @Autowired
     PilotRepository pilotRepository;
+
+    @Autowired
+    PilotFlightRepository pilotFlightRepository;
 
     @Autowired
     ModelMapper modelMapper;
@@ -72,6 +76,14 @@ public class PilotService {
         } else {
             throw new EntityNotFoundException("No Pilot Found For This Licence Number");
         }
+    }
+
+    public Boolean existRelatedPilotFlight(Integer pilotId) {
+        boolean exist = false;
+        if (pilotFlightRepository.existsByPilot_PilotId(pilotId)) {
+            exist = true;
+        }
+        return exist;
     }
 
     public void createPilot(PilotDto pilotDto) {

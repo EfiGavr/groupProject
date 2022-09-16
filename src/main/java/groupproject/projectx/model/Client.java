@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "client")
 @Getter
 @Setter
-@ToString(exclude = {"clientTicketSet","members"})
+@ToString(exclude = {"clientTicketSet", "members"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
@@ -62,13 +62,10 @@ public class Client implements Serializable {
     @Column(name = "role")
     private String role;
 
-//        @OneToMany(mappedBy = "client")
-//    @JsonManagedReference
-//    private Set<ClientFlight> clientFlightSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
     private Member members;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", orphanRemoval = true)
     @JsonManagedReference
 //    @ToString.Exclude
     private Set<ClientTicket> clientTicketSet;

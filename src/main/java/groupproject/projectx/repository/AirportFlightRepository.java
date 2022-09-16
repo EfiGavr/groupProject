@@ -27,5 +27,10 @@ public interface AirportFlightRepository extends JpaRepository<AirportFlight, In
 
     List<AirportFlight> findAllByFlight_FlightId(Integer flightId);
 
+    boolean existsByFrom1_AirportIdOrTo_AirportId(Integer airportId, Integer airportId2);
+
+
+
+
 
 }

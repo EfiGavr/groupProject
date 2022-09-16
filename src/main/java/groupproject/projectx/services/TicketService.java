@@ -3,6 +3,7 @@ package groupproject.projectx.services;
 
 
 import groupproject.projectx.dtos.TicketDto;
+import groupproject.projectx.model.ClientTicket;
 import groupproject.projectx.model.Ticket;
 import groupproject.projectx.repository.TicketRepository;
 
@@ -25,6 +26,9 @@ public class TicketService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    ClientTicketService clientTicketService;
 
     public List<TicketDto> getAllTickets() {
         return convertToDtoList(ticketRepository.findAll());
@@ -79,8 +83,15 @@ public class TicketService {
     }
 
 
-
-
+    public void deleteTicketByClientId(Integer clientId) {
+        List<ClientTicket> clientTickets = clientTicketService.getClientTicketByClientId(clientId);
+        for (int i = 0; i < clientTickets.size(); i++) {
+            //Get ticketId from every clientTicket
+            Integer ticketId = clientTickets.get(i).getTicket().getTicketId();
+            //Find and Delete ticket with this id
+            ticketRepository.deleteById(ticketId);
+        }
+    }
 
     public TicketDto convertToTicketDto(Ticket ticket) {
         return modelMapper.map(ticket, TicketDto.class);

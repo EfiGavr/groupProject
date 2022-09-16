@@ -95,7 +95,7 @@ public class ClientTicketController {
             @RequestParam("clientId") Integer clientId) {
         List<ClientTicketDto> clientTicketDtos = new ArrayList<>();
         try {
-            clientTicketDtos = clientTicketService.getClientTicketByClientId(clientId);
+            clientTicketDtos = clientTicketService.getClientTicketDtoByClientId(clientId);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Client - Ticket Successfully Found", clientTicketDtos));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {

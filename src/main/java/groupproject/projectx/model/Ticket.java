@@ -50,7 +50,7 @@ public class Ticket implements Serializable {
     @JsonBackReference
     private Flight flightTicketId;
 
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket", orphanRemoval = true)
     @JsonManagedReference
     private Set<ClientTicket> clientTicketSet;
 

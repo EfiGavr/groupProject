@@ -2,6 +2,7 @@ package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirportDto;
 import groupproject.projectx.model.Airport;
+import groupproject.projectx.repository.AirportFlightRepository;
 import groupproject.projectx.repository.AirportRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -20,6 +21,9 @@ public class AirportService {
 
     @Autowired
     AirportRepository airportRepository;
+
+    @Autowired
+    AirportFlightRepository airportFlightRepository;
 
     public AirportDto getAirportById(Integer airportId) {
         Optional<Airport> airportOptional = airportRepository.findById(airportId);
@@ -65,6 +69,14 @@ public class AirportService {
     public void createAirport(AirportDto airportDto) {
         Airport newAirport = convertToAirport(airportDto);
         airportRepository.save(newAirport);
+    }
+
+    public Boolean existRelatedAirportFlight(Integer airportId) {
+        boolean exist = false;
+        if (airportFlightRepository.existsByFrom1_AirportIdOrTo_AirportId(airportId,airportId)) {
+            exist = true;
+        }
+        return exist;
     }
 
     public void deleteAirport(AirportDto airportDto) {

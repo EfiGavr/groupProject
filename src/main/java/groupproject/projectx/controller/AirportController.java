@@ -3,6 +3,7 @@ package groupproject.projectx.controller;
 import groupproject.projectx.dtos.AirportDto;
 import groupproject.projectx.dtos.AirportFlightDto;
 import groupproject.projectx.dtos.GenericResponse;
+import groupproject.projectx.repository.AirportFlightRepository;
 import groupproject.projectx.services.AirportFlightService;
 import groupproject.projectx.services.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class AirportController {
 
     @Autowired
     AirportFlightService airportFlightService;
+
+    @Autowired
+    AirportFlightRepository airportFlightRepository;
 
     @GetMapping("/allAirports")
     public ResponseEntity<GenericResponse> getAllAirports() {
@@ -114,15 +118,18 @@ public class AirportController {
     public ResponseEntity<GenericResponse> deleteAirport(
             @RequestBody AirportDto airportDto) {
         try {
+            if (airportService.existRelatedAirportFlight(airportDto.getAirportId())) {
+                List<AirportFlightDto> airportFlightDtos = airportFlightService.getAirportFlightsByFromOrToAirportId(airportDto.getAirportId());
+                return ResponseEntity.ok().body(new GenericResponse("Error", "Can Not Delete Airport Which Is Related To A Flight", airportFlightDtos));
+
+            }
             airportService.deleteAirport(airportDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airport Successfully Deleted", null));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
             }
-            Integer id = airportDto.getAirportId();
-            List<AirportFlightDto> airportFlightDtoList = airportFlightService.getAirportFlightsByFromOrToAirportId(id);
-            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Deleting Airport", airportFlightDtoList));
+            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Deleting Airport", null));
         }
     }
 

@@ -10,4 +10,8 @@ public interface PilotFlightRepository extends JpaRepository<PilotFlight, Intege
     List<PilotFlight> findAllByPilot_PilotId(Integer pilotId);
 
     List<PilotFlight> findAllByFlight_FlightId(Integer flightd);
+
+    boolean existsByPilot_PilotId(Integer pilotId);
+
+
 }

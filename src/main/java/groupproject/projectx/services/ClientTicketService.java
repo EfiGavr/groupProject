@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,13 +69,23 @@ public class ClientTicketService {
         }
     }
 
-    public List<ClientTicketDto> getClientTicketByClientId(Integer clientId) {
+    public List<ClientTicketDto> getClientTicketDtoByClientId(Integer clientId) {
         List<ClientTicket> clientTickets = clientTicketRepository.findAllClientTicketByClient_ClientIdIs(clientId);
         if (clientTickets.isEmpty()) {
             throw new EntityNotFoundException("No Client found For This Client Id");
         } else {
             return convertToDtoList(clientTickets);
         }
+    }
+
+    public List<ClientTicket> getClientTicketByClientId(Integer clientId) {
+        List<ClientTicket> clientTickets = new ArrayList<>();
+        try {
+            clientTickets = clientTicketRepository.findAllClientTicketByClient_ClientIdIs(clientId);
+        } catch (Exception ex) {
+            // Add logger here
+        }
+        return clientTickets;
     }
 
     public List<ClientTicketDto> getClientTicketByClientTelephone(String telNumber) {
@@ -155,12 +166,6 @@ public class ClientTicketService {
         }
     }
 
-//    public void deleteClientTicketWhichConnectWithClientsAndTicketsToDelete(Integer clientId, Integer ticketId) {
-//        List<ClientTicket> lientTickets = clientTicketRepository.findAllClientTicketByClient_ClientIdIs(clientId);
-//        for (int i = 0; i < airportFlights.size(); i++) {
-//            airportFlightRepository.deleteById((airportFlights.get(i)).getAirportFlightId());
-//        }
-//    }
     public ClientTicketDto convertToClientTicketDto(ClientTicket clientTicket) {
         return modelMapper.map(clientTicket, ClientTicketDto.class);
     }

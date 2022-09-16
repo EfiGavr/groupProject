@@ -131,15 +131,18 @@ public class PilotController {
     public ResponseEntity<GenericResponse> deletePilot(
             @RequestBody PilotDto pilotDto) {
         try {
+            if (pilotService.existRelatedPilotFlight(pilotDto.getPilotId())) {
+                List<PilotFlightDto> pilotFlightDtos = pilotFlightService.getPilotFlightsFromPilotId(pilotDto.getPilotId());
+                return ResponseEntity.ok().body(new GenericResponse("Error", "Can Not Delete Pilot Who Is Related To A Flight", pilotFlightDtos));
+            }
             pilotService.deletePilot(pilotDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Pilot Successfully Deleted", null));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
             }
-            List<PilotFlightDto> pilotFlightDtos = pilotFlightService.getPilotFlightsFromPilotId(pilotDto.getPilotId());
-            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Deleting Pilot", pilotFlightDtos));
         }
+        return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Deleting Airport", null));
     }
 
     @PostMapping("/updatePilot")

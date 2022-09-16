@@ -12,9 +12,6 @@ public interface ClientTicketRepository extends JpaRepository<ClientTicket, Inte
 
     List<ClientTicket> findAllClientTicketByTicket_FareIs(BigDecimal fare);
 
-
-//    List<ClientTicket> findAllByTicket_FlightTicketIdIs(Integer flightTicketId);
-
     List<ClientTicket> findByTicket_FlightTicketId_FlightId(Integer flightId);
 
     List<ClientTicket> findAllClientTicketByClient_ClientIdIs(Integer clientId);
@@ -29,12 +26,9 @@ public interface ClientTicketRepository extends JpaRepository<ClientTicket, Inte
 
     List<ClientTicket> findAllClientTicketByClient_RoleIs(String role);
 
-//    List<ClientTicket> findByClient_ClientTicketSet_ClientTicketId(Integer clientTicketId);
-
     List<ClientTicket> findAllByTicket_TicketId(Integer ticketId);
 
-
-
+    boolean existsByClient_ClientId(Integer clientId);
 
 
 }
