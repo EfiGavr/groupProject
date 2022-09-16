@@ -15,9 +15,9 @@ import java.util.List;
  */
 public interface AirplaneFlightService {
     List<AirplaneFlightDto> getAllAirplaneFlights();
-    List<AirplaneFlightDto> getAllAirplanesByManufacture(String manufacture);
+    List<AirplaneFlightDto> getAllAirplaneFlightsByManufacture(String manufacture);
     List<AirplaneFlightDto> getAllAirplaneFlightsByModelNumber(String modelNumber);
-    List<AirplaneFlightDto> getAllAirplaneFlightsByCapacity(int capacity);
+    List<AirplaneFlightDto> getAllAirplaneFlightsByCapacity(Integer capacity);
     List<AirplaneFlightDto> getAllAirplaneFlightsByDeparture(LocalDateTime departureDate);
     List<AirplaneFlightDto> getAllAirplaneFlightsByArrival(LocalDateTime arrivalDate);
     void deleteAirplaneFlightWhichConnectWithAirplaneToDelete(Integer airplaneId);
