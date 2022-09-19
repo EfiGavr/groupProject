@@ -1,6 +1,8 @@
 package groupproject.projectx.services;
 
 
+import groupproject.projectx.dtos.AdminDto;
+import groupproject.projectx.model.Admin;
 import groupproject.projectx.model.Client;
 import groupproject.projectx.dtos.ClientDto;
 import groupproject.projectx.repository.ClientRepository;
@@ -34,7 +36,7 @@ public class ClientService {
             Client client = clientOptional.get();
             return convertToClientDto(client);
         } else {
-            throw new EntityNotFoundException("Airport Not Found");
+            throw new EntityNotFoundException("Client Not Found");
         }
     }
 
@@ -95,13 +97,15 @@ public class ClientService {
         return exist;
     }
 
+
+
     public void createClient(ClientDto clientDto) {
         Client newClient = convertToClient(clientDto);
         clientRepository.save(newClient);
     }
 
-    public void deleteClient(ClientDto clientDto) {
-        clientRepository.deleteById(convertToClient(clientDto).getClientId());
+    public void deleteClient(Integer clientId) {
+        clientRepository.deleteById(clientId);
     }
 
     public ClientDto updateClient(ClientDto updatedClientDto) {
@@ -112,6 +116,15 @@ public class ClientService {
             return updatedClientDto;
         } else {
             throw new EntityNotFoundException("Client Not Found");
+        }
+    }
+
+    public ClientDto getClientByCredentials(String username, String password) {
+        Client client = clientRepository.findByUsernameAndPassword(username, password);
+        if (client == null){
+            throw new IllegalArgumentException("Client Did Not Found");
+        }else{
+            return convertToClientDto(client);
         }
     }
 

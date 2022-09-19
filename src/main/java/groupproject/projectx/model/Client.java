@@ -1,13 +1,11 @@
 package groupproject.projectx.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "client")
 @Getter
 @Setter
-@ToString(exclude = {"clientTicketSet", "members"})
+@ToString(exclude = {"clientTicketSet"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
@@ -62,26 +59,23 @@ public class Client implements Serializable {
     @Column(name = "role")
     private String role;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
-    private Member members;
+    @Size(max = 45)
+    @Column(name = "username")
+    private String username;
 
-    @OneToMany(mappedBy = "client", orphanRemoval = true)
+    @Size(max = 45)
+    @Column(name = "password")
+    private String password;
+
+    @OneToMany(mappedBy = "client",orphanRemoval = true)
+//    , orphanRemoval = true
     @JsonManagedReference
-//    @ToString.Exclude
     private Set<ClientTicket> clientTicketSet;
 
     public Client(Integer clientId) {
         this.clientId = clientId;
     }
 
-
-    public Member getMembers() {
-        return members;
-    }
-
-    public void setMembers(Member members) {
-        this.members = members;
-    }
 
     @XmlTransient
     public Set<ClientTicket> getClientTicketSet() {

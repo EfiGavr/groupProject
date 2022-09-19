@@ -1,5 +1,10 @@
 package groupproject.projectx.dtos;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class ClientDto {
     
     private Integer clientId;
@@ -8,6 +13,10 @@ public class ClientDto {
     private String fname;
     private String lname;
     private String role;
+
+    private String username;
+
+    private String password;
 
     public ClientDto() {
     }
@@ -19,54 +28,5 @@ public class ClientDto {
         this.lname = lname;
         this.role = role;
     }
-    
-    public Integer getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Integer clientId) {
-        this.clientId = clientId;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-    
     
 }

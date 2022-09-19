@@ -17,6 +17,8 @@ public class TicketDto {
 
     private FlightDto flightTicketId;
 
+    private boolean reserved;
+
     public TicketDto() {
     }
 }

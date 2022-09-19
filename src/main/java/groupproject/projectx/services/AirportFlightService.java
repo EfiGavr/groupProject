@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,9 @@ public class AirportFlightService {
 
     @Autowired
     private FlightService flightService;
+
+    @Autowired
+    private TicketService ticketService;
 
     public List<AirportFlightDto> getAllAirportFligths() {
         List<AirportFlight> airportFlights = airportFlightRepository.findAll();
@@ -103,10 +107,16 @@ public class AirportFlightService {
 
     public List<AirportFlightDto> getAirportFlightByDepartureArrivalDateAndByDepartureArrivalCountry(LocalDateTime departureStartDate, String countryDeparture, String countryArrival) {
         List<AirportFlight> airportFlights = airportFlightRepository.findAllAirportFlightsByFlight_DepartureBetweenAndFrom1_CountryIsAndTo_CountryIs(departureStartDate, departureStartDate.plusHours(24).minusSeconds(1), countryDeparture, countryArrival);
-        if (airportFlights.isEmpty()) {
+        List<AirportFlight> availAriportFlights = new ArrayList<>();
+        for (AirportFlight airportFlight : airportFlights) {
+            if (ticketService.hasFlightAvailableTickets(airportFlight.getFlight().getFlightId())) {
+                availAriportFlights.add(airportFlight);
+            }
+        }
+        if (availAriportFlights.isEmpty()) {
             throw new EntityNotFoundException("No Airport Found For This Departure Date and Countries Of Departure And Destination");
         } else {
-            return convertToDtoList(airportFlights);
+            return convertToDtoList(availAriportFlights);
         }
     }
 
@@ -114,6 +124,7 @@ public class AirportFlightService {
         List<AirportFlight> airportFlights = airportFlightRepository.findAllByFrom1_AirportIdOrTo_AirportId(airportId, airportId);
         return convertToDtoList(airportFlights);
     }
+
 
     public void deleteAirportFlightWhichConnectWithFlightToDelete(Integer flightId) {
         List<AirportFlight> airportFlights = airportFlightRepository.findAllByFlight_FlightId(flightId);

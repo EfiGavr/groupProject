@@ -30,5 +30,6 @@ public interface ClientTicketRepository extends JpaRepository<ClientTicket, Inte
 
     boolean existsByClient_ClientId(Integer clientId);
 
+    List<ClientTicket> findByClient_ClientId(Integer clientId);
 
 }

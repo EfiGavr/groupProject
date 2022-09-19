@@ -92,12 +92,30 @@ public class TicketController {
     @PostMapping("/createTicket")
     public ResponseEntity<GenericResponse> createNewTicket(
             @RequestBody TicketDto ticketDto) {
+        //TODO make tickets created while a new flight is created
         try {
             ticketService.createTicket(ticketDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Ticket Successfully Created", null));
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Ticket", null));
         }
+    }
+
+    @PostMapping("/ticketByFlight")
+    public ResponseEntity<GenericResponse> getTicketByFlight(
+            @RequestParam("flightId") Integer flightId) {
+        TicketDto ticketDto = new TicketDto();
+        try {
+            ticketDto = ticketService.getAvailiableTicketByFlight(flightId, false);
+            BigDecimal totalAmount = ticketDto.getFare();
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Ticket Successfully Found", totalAmount));
+        } catch (Exception ex) {
+            if (ex instanceof EntityNotFoundException) {
+                return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
+            }
+            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Searching Tickets", null));
+        }
+
     }
 
     @PostMapping("/updateTicket")

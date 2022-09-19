@@ -15,6 +15,12 @@ public interface TicketRepository extends JpaRepository<Ticket,Integer>{
 
      List<Ticket> findByFlightTicketId_FlightId(Integer flightId);
 
+     Ticket findFirstByFlightTicketId_FlightIdAndReserved(Integer flightId, Boolean reserved);
+
+     int countByReservedAndFlightTicketId_FlightId(boolean reserved, Integer flightId);
+
+
+
 //     List<Ticket> findByClientTicketSet_ClientTicketId(Integer clientTicketId);
 //
 //     List<Ticket> findByFlightTicketId_DepartureIs(LocalDateTime departure);

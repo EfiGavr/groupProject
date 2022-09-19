@@ -1,8 +1,12 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.ClientTicketDto;
+import groupproject.projectx.model.Client;
 import groupproject.projectx.model.ClientTicket;
+import groupproject.projectx.model.Ticket;
+import groupproject.projectx.repository.ClientRepository;
 import groupproject.projectx.repository.ClientTicketRepository;
+import groupproject.projectx.repository.TicketRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,15 @@ public class ClientTicketService {
 
     @Autowired
     private ClientTicketRepository clientTicketRepository;
+
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private ClientTicketService clientTicketService;
 
 
     public List<ClientTicketDto> getAllClientTicket() {
@@ -83,7 +96,7 @@ public class ClientTicketService {
         try {
             clientTickets = clientTicketRepository.findAllClientTicketByClient_ClientIdIs(clientId);
         } catch (Exception ex) {
-            // Add logger here
+            // TODO Add logger here
         }
         return clientTickets;
     }
@@ -146,25 +159,57 @@ public class ClientTicketService {
         return clientTickets;
     }
 
-    public void createClientTicket(ClientTicketDto clientTicketDto) {
-        ClientTicket newClientTicket = convertToClientTicket(clientTicketDto);
-        clientTicketRepository.save(newClientTicket);
-    }
-
-    public void deleteClientTicket(ClientTicketDto clientTicketDto) {
-        clientTicketRepository.deleteById(clientTicketDto.getClientTicketId());
-    }
-
-    public ClientTicketDto updateClientTicket(ClientTicketDto clientTicketDto) {
-        boolean isClientTicketExist = clientTicketRepository.existsById(clientTicketDto.getClientTicketId());
-        if (isClientTicketExist) {
-            ClientTicket clientTicket = convertToClientTicket(clientTicketDto);
-            clientTicketRepository.save(clientTicket);
-            return convertToClientTicketDto(clientTicket);
+    public ClientTicket createClientTicket(Integer clientId, Integer ticketId) {
+        ClientTicket newClientTicket = new ClientTicket();
+        Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        Ticket ticket = new Ticket();
+        Client client = new Client();
+        if ((ticketOptional.isPresent() && (clientOptional.isPresent()))) {
+            ticket = ticketOptional.get();
+            client = clientOptional.get();
+            newClientTicket.setTicket(ticket);
+            newClientTicket.setClient(client);
+            clientTicketRepository.save(newClientTicket);
+            ticket.setReserved(true);
+            ticketRepository.save(ticket);
+            return newClientTicket;
         } else {
-            throw new EntityNotFoundException("Client - Ticket Not Found");
+            throw new EntityNotFoundException(" Not ticket or client found");
         }
     }
+
+    public void deleteClientTicket(Integer clientTicketId) {
+        clientTicketRepository.deleteById(clientTicketId);
+    }
+
+    //METHODS THAT ARE NOT GOING TO BE USED
+
+//    public void deleteClientTicket(ClientTicketDto clientTicketDto) {
+//        int clientId = clientTicketDto.getClient().getClientId();
+//        List<ClientTicket> clientTickets = clientTicketService.getClientTicketByClientId(clientId);
+//        for(int i = 0; i < clientTickets.size(); i++){
+//            Integer ticketId = clientTickets.get(i).getTicket().getTicketId();
+//            Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
+//            if (ticketOptional.isPresent()) {
+//                Ticket ticket = ticketOptional.get();
+//                ticket.setReserved(false);
+//                ticketRepository.save(ticket);
+//            }
+//        }
+//        clientTicketRepository.deleteById(clientTicketDto.getClientTicketId());
+//    }
+
+//    public ClientTicketDto updateClientTicket(ClientTicketDto clientTicketDto) {
+//        boolean isClientTicketExist = clientTicketRepository.existsById(clientTicketDto.getClientTicketId());
+//        if (isClientTicketExist) {
+//            ClientTicket clientTicket = convertToClientTicket(clientTicketDto);
+//            clientTicketRepository.save(clientTicket);
+//            return convertToClientTicketDto(clientTicket);
+//        } else {
+//            throw new EntityNotFoundException("Client - Ticket Not Found");
+//        }
+//    }
 
     public ClientTicketDto convertToClientTicketDto(ClientTicket clientTicket) {
         return modelMapper.map(clientTicket, ClientTicketDto.class);

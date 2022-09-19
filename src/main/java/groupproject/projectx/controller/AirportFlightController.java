@@ -23,8 +23,6 @@ public class AirportFlightController {
 
     @GetMapping("/allAirportFlights")
     public ResponseEntity<GenericResponse> getAllAirportFlights() {
-//        emailService.sendMailWithAttachment(from, "lenovokonk@gmail.com", "test","Welcome to Airline Company! You will recieve your tickets here with attachment !!!");
-
         List<AirportFlightDto> allFlights = new ArrayList();
         try {
             allFlights = airportFlightService.getAllAirportFligths();
@@ -139,7 +137,7 @@ public class AirportFlightController {
         }
     }
 
-    @PostMapping("fromToDepartDate")
+    @PostMapping("/fromToDepartDate")
     public ResponseEntity<GenericResponse> getAirportFlightsByDatesAndDestination(
             @RequestParam("departureDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDate,
             @RequestParam("countryDeparture") String countryDeparture,

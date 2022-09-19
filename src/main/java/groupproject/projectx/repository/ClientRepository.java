@@ -18,5 +18,11 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     List<Client> findAllByLname(String lname);
 
+    Client findByUsernameAndPassword(String username, String password);
+
+    Client findByClientTicketSet_ClientTicketId(Integer clientTicketId);
+
+
+
 
 }
