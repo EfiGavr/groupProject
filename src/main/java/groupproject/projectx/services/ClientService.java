@@ -1,8 +1,6 @@
 package groupproject.projectx.services;
 
 
-import groupproject.projectx.dtos.AdminDto;
-import groupproject.projectx.model.Admin;
 import groupproject.projectx.model.Client;
 import groupproject.projectx.dtos.ClientDto;
 import groupproject.projectx.repository.ClientRepository;
@@ -98,9 +96,12 @@ public class ClientService {
     }
 
 
-
     public void createClient(ClientDto clientDto) {
         Client newClient = convertToClient(clientDto);
+        String email = newClient.getEmail();
+        if (clientRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("This email already exist");
+        }
         clientRepository.save(newClient);
     }
 
@@ -121,9 +122,9 @@ public class ClientService {
 
     public ClientDto getClientByCredentials(String username, String password) {
         Client client = clientRepository.findByUsernameAndPassword(username, password);
-        if (client == null){
+        if (client == null) {
             throw new IllegalArgumentException("Client Did Not Found");
-        }else{
+        } else {
             return convertToClientDto(client);
         }
     }

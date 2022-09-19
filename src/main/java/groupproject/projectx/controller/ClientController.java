@@ -132,11 +132,12 @@ public class ClientController {
     public ResponseEntity<GenericResponse> createClient(
             @RequestBody ClientDto clientDto) {
         try {
-            //TODO  check if client's mail already exists
             clientService.createClient(clientDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Client Successfully Created", null));
         } catch (Exception ex) {
             if (ex instanceof EntityNotFoundException) {
+                return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
+            } else if (ex instanceof IllegalArgumentException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
             }
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error While Creating Client", null));
