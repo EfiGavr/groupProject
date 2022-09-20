@@ -6,6 +6,7 @@ import groupproject.projectx.dtos.GenericResponse;
 import groupproject.projectx.services.AirportFlightService;
 import groupproject.projectx.services.FlightService;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/flights")
@@ -125,13 +127,35 @@ public class FlightController {
         }
     }
 
+    // METHOD WHICH PROBABLY IS NOT GOING TO BE USED
+
+//    @PostMapping("/createFlight")
+//    public ResponseEntity<GenericResponse> createNewFlight(
+//            @RequestBody FlightDto flightDto) {
+//        try {
+//            flightService.createFlight(flightDto);
+//            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Flight Successfully Created", null));
+//        } catch (Exception ex) {
+//            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Flight", null));
+//        }
+//    }
+
     @PostMapping("/createFlight")
-    public ResponseEntity<GenericResponse> createNewFlight(
-            @RequestBody FlightDto flightDto) {
+    public ResponseEntity<GenericResponse> createFlight(
+            @RequestParam("departureDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDate,
+            @RequestParam("arrivalDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime arrivalDate,
+            @RequestParam("departureAirport") String departureAirport,
+            @RequestParam("destinationAirport") String destinationAirport,
+            @RequestParam("Airplane") String Airplane,
+            @RequestParam("PilotLicense") Integer pilotLicense,
+            @RequestParam("fareOfTickets") BigDecimal fareOfTickets) {
         try {
-            flightService.createFlight(flightDto);
-            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Flight Successfully Created", null));
+            flightService.createFlightWithParams(departureDate, arrivalDate, departureAirport, destinationAirport, Airplane, pilotLicense, fareOfTickets);
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Flight And Its Necessary Connections And Tickets Successfully Created", null));
         } catch (Exception ex) {
+            if (ex instanceof EntityNotFoundException) {
+                return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
+            }
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Flight", null));
         }
     }
@@ -165,7 +189,5 @@ public class FlightController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Updating Flight", null));
         }
     }
-
-
 }
 

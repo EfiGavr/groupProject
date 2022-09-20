@@ -1,6 +1,7 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.PilotDto;
+import groupproject.projectx.model.Flight;
 import groupproject.projectx.model.Pilot;
 import groupproject.projectx.repository.PilotFlightRepository;
 import groupproject.projectx.repository.PilotRepository;
@@ -70,9 +71,9 @@ public class PilotService {
 
     //Something needs changes in this Method
     public PilotDto getPilotByLicenceNumber(Integer licenceNumber) {
-        PilotDto pilot = convertToDto(pilotRepository.findByLicenceNumber(licenceNumber));
+        Pilot pilot = pilotRepository.findByLicenceNumber(licenceNumber);
         if (pilot != null) {
-            return pilot;
+            return convertToDto(pilot);
         } else {
             throw new EntityNotFoundException("No Pilot Found For This Licence Number");
         }

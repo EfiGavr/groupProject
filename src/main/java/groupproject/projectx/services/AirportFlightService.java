@@ -2,6 +2,7 @@ package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirportFlightDto;
 import groupproject.projectx.model.AirportFlight;
+import groupproject.projectx.model.Flight;
 import groupproject.projectx.repository.AirportFlightRepository;
 import groupproject.projectx.repository.AirportRepository;
 import org.modelmapper.ModelMapper;
@@ -26,9 +27,6 @@ public class AirportFlightService {
 
     @Autowired
     private AirportRepository airportRepository;
-
-    @Autowired
-    private FlightService flightService;
 
     @Autowired
     private TicketService ticketService;
@@ -136,6 +134,14 @@ public class AirportFlightService {
     public void createAirportFlight(AirportFlightDto airportFlightDto) {
         AirportFlight newAirportFlight = convertToAirportFlight(airportFlightDto);
         airportFlightRepository.save(newAirportFlight);
+    }
+
+    public void createAirportFlightWithParams(String departureAirport, String destinationAirport, Flight flight){
+        AirportFlight airportFlight = new AirportFlight();
+        airportFlight.setTo(airportRepository.findByAirportname(destinationAirport));
+        airportFlight.setFrom1(airportRepository.findByAirportname(departureAirport));
+        airportFlight.setFlight(flight);
+        airportFlightRepository.save(airportFlight);
     }
 
     public void deleteAirportFlight(AirportFlightDto airportFlightDto) {

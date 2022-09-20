@@ -20,4 +20,6 @@ public interface AirplaneFlightRepository extends JpaRepository<AirplaneFlight, 
     List<AirplaneFlight> findByAirplane_Capacity(Integer capacity);
     List<AirplaneFlight> findByFlight_DepartureBetween(LocalDateTime departureDate, LocalDateTime departureDate2);
     List<AirplaneFlight> findByFlight_ArrivalBetween(LocalDateTime arrivalDate, LocalDateTime arrivalDate2);
+
+
 }

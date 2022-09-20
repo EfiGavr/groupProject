@@ -9,10 +9,6 @@ import groupproject.projectx.model.AirplaneFlight;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- *
- * @author ironm
- */
 public interface AirplaneFlightService {
     List<AirplaneFlightDto> getAllAirplaneFlights();
     List<AirplaneFlightDto> getAllAirplaneFlightsByManufacture(String manufacture);
@@ -26,6 +22,7 @@ public interface AirplaneFlightService {
     AirplaneFlightDto updateAirplaneFlight(AirplaneFlightDto airplaneFlightDto);
     AirplaneFlightDto convertToAirplaneFlightDto(AirplaneFlight airplaneFlight);
     AirplaneFlight convertToAirplaneFlight(AirplaneFlightDto airplaneFlightDto);
+
     List<AirplaneFlightDto> convertToDtoList(List<AirplaneFlight> airplaneFlights);
     
     

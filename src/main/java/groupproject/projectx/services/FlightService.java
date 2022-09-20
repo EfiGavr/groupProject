@@ -1,9 +1,10 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.FlightDto;
-import groupproject.projectx.model.Flight;
-import groupproject.projectx.repository.FlightRepository;
+import groupproject.projectx.model.*;
+import groupproject.projectx.repository.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,27 @@ public class FlightService {
 
     @Autowired
     FlightRepository flightRepository;
+
+    @Autowired
+    AirportService airportService;
+
+    @Autowired
+    AirplaneRepository airplaneRepository;
+
+    @Autowired
+    AirplaneFlightServiceImplementation airplaneFlightServiceImplementation;
+
+    @Autowired
+    PilotService pilotService;
+
+    @Autowired
+    TicketRepository ticketRepository;
+
+    @Autowired
+    PilotFlightService pilotFlightService;
+
+    @Autowired
+    AirportFlightService airportFlightService;
 
     public List<FlightDto> getAllFlights() {
         return convertToDtoList(flightRepository.findAll());
@@ -81,6 +103,51 @@ public class FlightService {
     public void createFlight(FlightDto flightDto) {
         Flight newFlight = convertToFlight(flightDto);
         flightRepository.save(newFlight);
+    }
+
+    public FlightDto createFlightWithParams(LocalDateTime departureDate, LocalDateTime arrivalDate, String departureAirport,
+                                            String destinationAirport, String airplane, Integer pilotLicense, BigDecimal fareOfTickets) {
+        Flight flight = new Flight();
+        if (pilotService.getPilotByLicenceNumber(pilotLicense) != null) {
+            if (!airportService.getAirportsByAirportname(departureAirport).isEmpty()) {
+                if (!airportService.getAirportsByAirportname(destinationAirport).isEmpty()) {
+                    List<Airplane> airplanes = airplaneRepository.findByModelNumber(airplane);
+                    if (!airplanes.isEmpty()) {
+                        flight.setDeparture(departureDate);
+                        flight.setArrival(arrivalDate);
+                        flightRepository.save(flight);
+                        createAllFlightConnections(flight, departureAirport, destinationAirport, airplane, pilotLicense, airplanes, fareOfTickets);
+                    } else {
+                        throw new EntityNotFoundException("There Are No Airplanes With This Model Number");
+                    }
+                } else {
+                    throw new EntityNotFoundException("There Is Not This Airport In The List Of Destination Airports");
+                }
+            } else {
+                throw new EntityNotFoundException("There Is Not This Airport In The List Of Destination Airports");
+            }
+        }
+        return convertToFlightDto(flight);
+
+    }
+
+    public void createAllFlightConnections(Flight flight, String departureAirport,
+                                           String destinationAirport, String airplane, Integer pilotLicense, List<Airplane> airplanes, BigDecimal fareOfTickets) {
+        airportFlightService.createAirportFlightWithParams(departureAirport, destinationAirport, flight);
+        airplaneFlightServiceImplementation.createAirplaneWithParams(flight, airplane);
+        pilotFlightService.createPilotFlightWithParams(flight, pilotLicense);
+        createTicketsForFlight(airplanes.get(0).getCapacity(), fareOfTickets, flight);
+    }
+
+
+    public void createTicketsForFlight(int capacity, BigDecimal fareOfTickets, Flight flight) {
+        for (int i = 1; i <= capacity; i++) {
+            Ticket ticket = new Ticket();
+            ticket.setFare(fareOfTickets);
+            ticket.setReserved(false);
+            ticket.setFlightTicketId(flight);
+            ticketRepository.save(ticket);
+        }
     }
 
     public void deleteFlight(FlightDto flightDto) {

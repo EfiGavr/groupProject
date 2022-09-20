@@ -41,7 +41,6 @@ public class PilotController {
         }
     }
 
-    //    //controler for finding pilots with id
     @GetMapping("/pilot/{id}")
     public ResponseEntity<GenericResponse> getPilotById(@PathVariable("id") Integer pilotId) {
         PilotDto pilotDto;

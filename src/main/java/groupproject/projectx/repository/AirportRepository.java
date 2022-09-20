@@ -13,5 +13,9 @@ public interface AirportRepository extends JpaRepository<Airport, Integer> {
 
     List<Airport> findAllByAirportname(String airportname);
 
+    Airport findByAirportname(String airportname);
+
+
+
 
 }

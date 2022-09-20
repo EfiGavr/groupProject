@@ -1,8 +1,11 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.PilotFlightDto;
+import groupproject.projectx.model.Flight;
+import groupproject.projectx.model.Pilot;
 import groupproject.projectx.model.PilotFlight;
 import groupproject.projectx.repository.PilotFlightRepository;
+import groupproject.projectx.repository.PilotRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class PilotFlightService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    PilotRepository pilotRepository;
 
 
     public List<PilotFlightDto> getAllPilotFlights() {
@@ -57,6 +63,15 @@ public class PilotFlightService {
     public void createPilotFlight(PilotFlightDto pilotFlightDto) {
         PilotFlight newPilotFlight = convertToPilotFlight(pilotFlightDto);
         pilotFlightRepository.save(newPilotFlight);
+    }
+
+    public void createPilotFlightWithParams(Flight flight, Integer pilotLicense){
+        PilotFlight pilotFlight = new PilotFlight();
+        pilotFlight.setFlight(flight);
+        Pilot pilot = pilotRepository.findByLicenceNumber(pilotLicense);
+        pilotFlight.setPilot(pilot);
+        pilotFlightRepository.save(pilotFlight);
+
     }
 
     public PilotFlightDto updatePilotFlight(PilotFlightDto pilotFlightDto) {

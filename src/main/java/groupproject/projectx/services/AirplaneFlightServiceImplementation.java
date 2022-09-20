@@ -5,7 +5,9 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirplaneFlightDto;
+import groupproject.projectx.model.Airplane;
 import groupproject.projectx.model.AirplaneFlight;
+import groupproject.projectx.model.Flight;
 import groupproject.projectx.repository.AirplaneFlightRepository;
 import groupproject.projectx.repository.AirplaneRepository;
 import java.time.LocalDateTime;
@@ -15,11 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-/**
- *
- * @author ironm
- */
 @Service
 
 public class AirplaneFlightServiceImplementation implements AirplaneFlightService {
@@ -102,6 +99,14 @@ public class AirplaneFlightServiceImplementation implements AirplaneFlightServic
     public void createAirplaneFlight(AirplaneFlightDto airplaneFlightDto) {
         AirplaneFlight newAirplaneFlight = convertToAirplaneFlight(airplaneFlightDto);
         airplaneFlightRepository.save(newAirplaneFlight);
+    }
+
+    public void createAirplaneWithParams(Flight flight, String airplaneModelNumber){
+        List<Airplane> airplanes =  airplaneRepository.findByModelNumber(airplaneModelNumber);
+        AirplaneFlight airplaneFlight = new AirplaneFlight();
+        airplaneFlight.setFlight(flight);
+        airplaneFlight.setAirplane(airplanes.get(0));
+        airplaneFlightRepository.save(airplaneFlight);
     }
 
     @Override

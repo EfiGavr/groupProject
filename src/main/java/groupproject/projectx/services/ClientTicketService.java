@@ -33,10 +33,6 @@ public class ClientTicketService {
     @Autowired
     private ClientRepository clientRepository;
 
-    @Autowired
-    private ClientTicketService clientTicketService;
-
-
     public List<ClientTicketDto> getAllClientTicket() {
         List<ClientTicket> clientTickets = clientTicketRepository.findAll();
         return convertToDtoList(clientTickets);
