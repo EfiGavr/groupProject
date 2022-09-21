@@ -2,6 +2,7 @@ package groupproject.projectx.controller;
 
 import groupproject.projectx.dtos.AirportFlightDto;
 import groupproject.projectx.dtos.GenericResponse;
+import groupproject.projectx.dtos.TestCl;
 import groupproject.projectx.services.AirportFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/airportFlight")
 public class AirportFlightController {
