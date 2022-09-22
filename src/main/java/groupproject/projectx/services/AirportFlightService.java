@@ -136,7 +136,7 @@ public class AirportFlightService {
         airportFlightRepository.save(newAirportFlight);
     }
 
-    public void createAirportFlightWithParams(String departureAirport, String destinationAirport, Flight flight){
+    public void createAirportFlightWithParams(String departureAirport, String destinationAirport, Flight flight) {
         AirportFlight airportFlight = new AirportFlight();
         airportFlight.setTo(airportRepository.findByAirportname(destinationAirport));
         airportFlight.setFrom1(airportRepository.findByAirportname(departureAirport));
@@ -158,11 +158,6 @@ public class AirportFlightService {
             throw new EntityNotFoundException("Airport - Flight Not Found");
         }
     }
-
-//    public List<AirportFlightDto> getAirportFlightByFlightId(Integer flightId){
-//        List<AirportFlight> airportFlights = airportFlightRepository.findAllByFlight_FlightId(flightId);
-//        return convertToDtoList(airportFlights);
-//    }
 
     public AirportFlightDto convertToAirportFlightDto(AirportFlight airportFlight) {
         return modelMapper.map(airportFlight, AirportFlightDto.class);

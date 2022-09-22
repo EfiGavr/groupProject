@@ -127,19 +127,6 @@ public class FlightController {
         }
     }
 
-    // METHOD WHICH PROBABLY IS NOT GOING TO BE USED
-
-//    @PostMapping("/createFlight")
-//    public ResponseEntity<GenericResponse> createNewFlight(
-//            @RequestBody FlightDto flightDto) {
-//        try {
-//            flightService.createFlight(flightDto);
-//            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Flight Successfully Created", null));
-//        } catch (Exception ex) {
-//            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Flight", null));
-//        }
-//    }
-
     @PostMapping("/createFlight")
     public ResponseEntity<GenericResponse> createFlight(
             @RequestParam("departureDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDate,
@@ -189,5 +176,18 @@ public class FlightController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Updating Flight", null));
         }
     }
+
+    //     METHOD WHICH PROBABLY IS NOT GOING TO BE USED
+
+//    @PostMapping("/createFlight")
+//    public ResponseEntity<GenericResponse> createNewFlight(
+//            @RequestBody FlightDto flightDto) {
+//        try {
+//            flightService.createFlight(flightDto);
+//            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Flight Successfully Created", null));
+//        } catch (Exception ex) {
+//            return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Flight", null));
+//        }
+//    }
 }
 

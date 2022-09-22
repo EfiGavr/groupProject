@@ -15,16 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/tickets")
 public class TicketController {
 
     @Autowired
     private TicketService ticketService;
-
-    @Autowired
-    private TicketRepository ticketRepository;
 
     @Autowired
     private ClientTicketService clientTicketService;
@@ -147,5 +144,4 @@ public class TicketController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Deleting Ticket", null));
         }
     }
-
 }

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/clientTicket")
 public class ClientTicketController {
@@ -36,13 +37,7 @@ public class ClientTicketController {
     private ClientRepository clientRepository;
 
     @Autowired
-    private TicketRepository ticketRepository;
-
-    @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private ClientTicketRepository clientTicketRepository;
 
     @Value("${spring.mail.username}")
     private String from;

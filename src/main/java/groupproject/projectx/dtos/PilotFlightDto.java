@@ -1,7 +1,5 @@
 package groupproject.projectx.dtos;
 
-import groupproject.projectx.model.Flight;
-import groupproject.projectx.model.Pilot;
 
 public class PilotFlightDto {
 

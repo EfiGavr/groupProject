@@ -1,38 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirplaneDto;
-import groupproject.projectx.dtos.GenericResponse;
-import groupproject.projectx.exception.ResourceNotFoundException;
 import groupproject.projectx.model.Airplane;
 import groupproject.projectx.repository.AirplaneRepository;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author ironm
- */
 @Service
 public class AirplaneServiceImplementation implements AirplaneService {
-    
+
     @Autowired
     ModelMapper modelMapper;
-    
+
     @Autowired
     AirplaneRepository airplaneRepository;
-    
+
     @Override
     public List<AirplaneDto> getAllAirplanes() {
         return convertToDtoList(airplaneRepository.findAll());
@@ -40,7 +30,7 @@ public class AirplaneServiceImplementation implements AirplaneService {
 
     @Override
     public AirplaneDto getAirplaneById(Integer id) {
-         //get optional airplane
+        //get optional airplane
         Optional<Airplane> airplaneOptional = airplaneRepository.findById(id);
         //if it exists
         if (airplaneOptional.isPresent()) {
@@ -75,7 +65,7 @@ public class AirplaneServiceImplementation implements AirplaneService {
 
     @Override
     public List<AirplaneDto> getAirplanesByCapacity(Integer capacity) {
-         List<AirplaneDto> airplanes = convertToDtoList(airplaneRepository.findByCapacity(capacity));
+        List<AirplaneDto> airplanes = convertToDtoList(airplaneRepository.findByCapacity(capacity));
         if (airplanes.isEmpty()) {
             throw new EntityNotFoundException("No Airplanes Found With This Capacity");
         } else {
@@ -96,7 +86,7 @@ public class AirplaneServiceImplementation implements AirplaneService {
 
     @Override
     public AirplaneDto updateAirplane(AirplaneDto updatedAirplaneDto) {
-         boolean isAirplaneExist = airplaneRepository.existsById(updatedAirplaneDto.getAirplaneId());
+        boolean isAirplaneExist = airplaneRepository.existsById(updatedAirplaneDto.getAirplaneId());
         if (isAirplaneExist) {
             Airplane airplane = convertToAirplane(updatedAirplaneDto);
             airplaneRepository.save(airplane);
@@ -118,11 +108,11 @@ public class AirplaneServiceImplementation implements AirplaneService {
 
     @Override
     public List<AirplaneDto> convertToDtoList(List<Airplane> airplanes) {
-        TypeToken<List<AirplaneDto>> typeToken = new TypeToken<>(){
-             };
+        TypeToken<List<AirplaneDto>> typeToken = new TypeToken<>() {
+        };
         return modelMapper.map(airplanes, typeToken.getType());
     }
-    }
+}
 
     
 

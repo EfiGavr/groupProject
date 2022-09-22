@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package groupproject.projectx.dtos;
 
-/**
- *
- * @author ironm
- */
 public class AirplaneFlightDto {
     private Integer airplaneFlightId;
     private AirplaneDto airplane;

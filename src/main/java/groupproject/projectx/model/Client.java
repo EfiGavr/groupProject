@@ -67,7 +67,7 @@ public class Client implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "client",orphanRemoval = true)
+    @OneToMany(mappedBy = "client", orphanRemoval = true)
 //    , orphanRemoval = true
     @JsonManagedReference
     private Set<ClientTicket> clientTicketSet;

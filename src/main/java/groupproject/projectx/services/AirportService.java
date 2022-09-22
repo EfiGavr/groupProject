@@ -73,7 +73,7 @@ public class AirportService {
 
     public Boolean existRelatedAirportFlight(Integer airportId) {
         boolean exist = false;
-        if (airportFlightRepository.existsByFrom1_AirportIdOrTo_AirportId(airportId,airportId)) {
+        if (airportFlightRepository.existsByFrom1_AirportIdOrTo_AirportId(airportId, airportId)) {
             exist = true;
         }
         return exist;
@@ -107,5 +107,4 @@ public class AirportService {
         };
         return modelMapper.map(airports, typeToken.getType());
     }
-
 }

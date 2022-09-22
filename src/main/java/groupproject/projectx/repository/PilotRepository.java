@@ -15,7 +15,4 @@ public interface PilotRepository extends JpaRepository<Pilot, Integer> {
     Pilot findByLicenceNumber(Integer licenceNumber);
 
     List<Pilot> findAllByContactNumber(String contactNumber);
-
-
-
 }

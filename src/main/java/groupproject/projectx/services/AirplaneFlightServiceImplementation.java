@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.AirplaneFlightDto;
@@ -10,27 +7,29 @@ import groupproject.projectx.model.AirplaneFlight;
 import groupproject.projectx.model.Flight;
 import groupproject.projectx.repository.AirplaneFlightRepository;
 import groupproject.projectx.repository.AirplaneRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-@Service
 
+@Service
 public class AirplaneFlightServiceImplementation implements AirplaneFlightService {
 
     @Autowired
     ModelMapper modelMapper;
-    
+
     @Autowired
     AirplaneFlightRepository airplaneFlightRepository;
-    
+
     @Autowired
     AirplaneRepository airplaneRepository;
-    
-    
+
+
     @Override
     public List<AirplaneFlightDto> getAllAirplaneFlights() {
         List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findAll();
@@ -56,10 +55,10 @@ public class AirplaneFlightServiceImplementation implements AirplaneFlightServic
             return convertToDtoList(airplaneFlights);
         }
     }
-    
+
     @Override
     public List<AirplaneFlightDto> getAllAirplaneFlightsByCapacity(Integer capacity) {
-         List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findByAirplane_Capacity(capacity);
+        List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findByAirplane_Capacity(capacity);
         if (airplaneFlights.isEmpty()) {
             throw new EntityNotFoundException("No Airplane Found with this Capacity");
         } else {
@@ -69,7 +68,7 @@ public class AirplaneFlightServiceImplementation implements AirplaneFlightServic
 
     @Override
     public List<AirplaneFlightDto> getAllAirplaneFlightsByDeparture(LocalDateTime departureDate) {
-         List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findByFlight_DepartureBetween(departureDate, departureDate.plusHours(24).minusSeconds(1));
+        List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findByFlight_DepartureBetween(departureDate, departureDate.plusHours(24).minusSeconds(1));
         if (airplaneFlights.isEmpty()) {
             throw new EntityNotFoundException("No Flights Found with this Departure Date");
         } else {
@@ -79,7 +78,7 @@ public class AirplaneFlightServiceImplementation implements AirplaneFlightServic
 
     @Override
     public List<AirplaneFlightDto> getAllAirplaneFlightsByArrival(LocalDateTime arrivalDate) {
-         List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findByFlight_ArrivalBetween(arrivalDate, arrivalDate.plusHours(24).minusSeconds(1));
+        List<AirplaneFlight> airplaneFlights = airplaneFlightRepository.findByFlight_ArrivalBetween(arrivalDate, arrivalDate.plusHours(24).minusSeconds(1));
         if (airplaneFlights.isEmpty()) {
             throw new EntityNotFoundException("No Flights Found with this Arrival Date");
         } else {
@@ -101,8 +100,8 @@ public class AirplaneFlightServiceImplementation implements AirplaneFlightServic
         airplaneFlightRepository.save(newAirplaneFlight);
     }
 
-    public void createAirplaneWithParams(Flight flight, String airplaneModelNumber){
-        List<Airplane> airplanes =  airplaneRepository.findByModelNumber(airplaneModelNumber);
+    public void createAirplaneWithParams(Flight flight, String airplaneModelNumber) {
+        List<Airplane> airplanes = airplaneRepository.findByModelNumber(airplaneModelNumber);
         AirplaneFlight airplaneFlight = new AirplaneFlight();
         airplaneFlight.setFlight(flight);
         airplaneFlight.setAirplane(airplanes.get(0));
@@ -142,7 +141,4 @@ public class AirplaneFlightServiceImplementation implements AirplaneFlightServic
         };
         return modelMapper.map(airplaneFlights, typeToken.getType());
     }
-
-    
-    
 }

@@ -3,7 +3,6 @@ package groupproject.projectx.controller;
 import groupproject.projectx.dtos.AirportDto;
 import groupproject.projectx.dtos.AirportFlightDto;
 import groupproject.projectx.dtos.GenericResponse;
-import groupproject.projectx.repository.AirportFlightRepository;
 import groupproject.projectx.services.AirportFlightService;
 import groupproject.projectx.services.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/airport")
 public class AirportController {
@@ -23,9 +23,6 @@ public class AirportController {
 
     @Autowired
     AirportFlightService airportFlightService;
-
-    @Autowired
-    AirportFlightRepository airportFlightRepository;
 
     @GetMapping("/allAirports")
     public ResponseEntity<GenericResponse> getAllAirports() {

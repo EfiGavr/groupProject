@@ -8,11 +8,6 @@ public class GenericResponse {
 
     private Object data;
 
-//    public GenericResponse(String status, String message, T data) {
-//        this.status = status;
-//        this.message = message;
-//        this.data = data;
-//    }
     public GenericResponse(String status, String message, Object data) {
         this.status = status;
         this.message = message;
@@ -35,14 +30,7 @@ public class GenericResponse {
         this.message = message;
     }
 
-//    public T getData() {
-//        return data;
-//    }
-//
-//    public void setData(T data) {
-//        this.data = data;
-//    }
-//
+
     public Object getData() {
         return data;
     }

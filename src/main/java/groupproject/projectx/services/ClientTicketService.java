@@ -179,6 +179,20 @@ public class ClientTicketService {
         clientTicketRepository.deleteById(clientTicketId);
     }
 
+    public ClientTicketDto convertToClientTicketDto(ClientTicket clientTicket) {
+        return modelMapper.map(clientTicket, ClientTicketDto.class);
+    }
+
+    public ClientTicket convertToClientTicket(ClientTicketDto clientTicketDto) {
+        return modelMapper.map(clientTicketDto, ClientTicket.class);
+    }
+
+    public List<ClientTicketDto> convertToDtoList(List<ClientTicket> clientTickets) {
+        TypeToken<List<ClientTicketDto>> typeToken = new TypeToken<>() {
+        };
+        return modelMapper.map(clientTickets, typeToken.getType());
+    }
+
     //METHODS THAT ARE NOT GOING TO BE USED
 
 //    public void deleteClientTicket(ClientTicketDto clientTicketDto) {
@@ -206,18 +220,4 @@ public class ClientTicketService {
 //            throw new EntityNotFoundException("Client - Ticket Not Found");
 //        }
 //    }
-
-    public ClientTicketDto convertToClientTicketDto(ClientTicket clientTicket) {
-        return modelMapper.map(clientTicket, ClientTicketDto.class);
-    }
-
-    public ClientTicket convertToClientTicket(ClientTicketDto clientTicketDto) {
-        return modelMapper.map(clientTicketDto, ClientTicket.class);
-    }
-
-    public List<ClientTicketDto> convertToDtoList(List<ClientTicket> clientTickets) {
-        TypeToken<List<ClientTicketDto>> typeToken = new TypeToken<>() {
-        };
-        return modelMapper.map(clientTickets, typeToken.getType());
-    }
 }

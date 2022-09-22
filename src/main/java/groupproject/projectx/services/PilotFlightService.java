@@ -65,7 +65,7 @@ public class PilotFlightService {
         pilotFlightRepository.save(newPilotFlight);
     }
 
-    public void createPilotFlightWithParams(Flight flight, Integer pilotLicense){
+    public void createPilotFlightWithParams(Flight flight, Integer pilotLicense) {
         PilotFlight pilotFlight = new PilotFlight();
         pilotFlight.setFlight(flight);
         Pilot pilot = pilotRepository.findByLicenceNumber(pilotLicense);

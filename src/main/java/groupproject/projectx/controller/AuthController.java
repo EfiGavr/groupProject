@@ -7,11 +7,9 @@ import groupproject.projectx.services.AdminService;
 import groupproject.projectx.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -29,7 +27,7 @@ public class AuthController {
         AdminDto adminDto = new AdminDto();
         try {
             adminDto = adminService.getAdminByCredentials(username, password);
-            return ResponseEntity.badRequest().body(new GenericResponse("Succeed", "Successfully Log In As Admin", adminDto));
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Successfully Log In As Admin", adminDto));
         } catch (Exception ex) {
             if (ex instanceof IllegalArgumentException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
@@ -45,7 +43,7 @@ public class AuthController {
         ClientDto clientDto = new ClientDto();
         try {
             clientDto = clientService.getClientByCredentials(username, password);
-            return ResponseEntity.badRequest().body(new GenericResponse("Succeed", "Successfully Log In As Client", clientDto));
+            return ResponseEntity.ok().body(new GenericResponse("Succeed", "Successfully Log In As Client", clientDto));
         } catch (Exception ex) {
             if (ex instanceof IllegalArgumentException) {
                 return ResponseEntity.badRequest().body(new GenericResponse("Error", ex.getMessage(), null));
@@ -53,5 +51,4 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error While Searching Client", null));
         }
     }
-
 }

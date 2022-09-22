@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "airport")
 @Getter
 @Setter
-@ToString(exclude = {"airportFlightSet","airportFlightSet1"})
+@ToString(exclude = {"airportFlightSet", "airportFlightSet1"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement

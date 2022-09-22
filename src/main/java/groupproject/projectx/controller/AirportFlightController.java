@@ -2,7 +2,6 @@ package groupproject.projectx.controller;
 
 import groupproject.projectx.dtos.AirportFlightDto;
 import groupproject.projectx.dtos.GenericResponse;
-import groupproject.projectx.dtos.TestCl;
 import groupproject.projectx.services.AirportFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

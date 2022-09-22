@@ -2,13 +2,12 @@ package groupproject.projectx.controller;
 
 import groupproject.projectx.dtos.AirplaneDto;
 import groupproject.projectx.dtos.GenericResponse;
-import groupproject.projectx.model.Airplane;
-import groupproject.projectx.model.AirplaneFlight;
-import groupproject.projectx.repository.AirplaneRepository;
 import groupproject.projectx.services.AirplaneFlightService;
 import groupproject.projectx.services.AirplaneService;
+
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class AirplaneController {
 
     @Autowired
     private AirplaneService airplaneService;
-    
+
     @Autowired
     private AirplaneFlightService airplaneFlightService;
 
@@ -103,10 +102,10 @@ public class AirplaneController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Creating Airplane", null));
         }
     }
-    
+
     @PostMapping("/deleteairplane")
-    public ResponseEntity<GenericResponse> deleteAirplane(@RequestBody AirplaneDto airplaneDto){
-    try {
+    public ResponseEntity<GenericResponse> deleteAirplane(@RequestBody AirplaneDto airplaneDto) {
+        try {
             airplaneService.deleteAirplane(airplaneDto);
             return ResponseEntity.ok().body(new GenericResponse("Succeed", "Airplane Successfully Deleted", null));
         } catch (Exception ex) {
@@ -118,7 +117,7 @@ public class AirplaneController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Airplane Successfully Deleted, after deleting all the Airplane - Flight Connections", null));
         }
     }
-    
+
     @PostMapping("/updateairplane")
     public ResponseEntity<GenericResponse> updateAirplane(
             @RequestBody AirplaneDto airplaneDto) {
@@ -132,5 +131,5 @@ public class AirplaneController {
             return ResponseEntity.badRequest().body(new GenericResponse("Error", "Error while Updating Airplane", null));
         }
     }
-    
+
 }

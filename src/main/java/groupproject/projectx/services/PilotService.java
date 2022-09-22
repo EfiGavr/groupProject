@@ -1,7 +1,6 @@
 package groupproject.projectx.services;
 
 import groupproject.projectx.dtos.PilotDto;
-import groupproject.projectx.model.Flight;
 import groupproject.projectx.model.Pilot;
 import groupproject.projectx.repository.PilotFlightRepository;
 import groupproject.projectx.repository.PilotRepository;

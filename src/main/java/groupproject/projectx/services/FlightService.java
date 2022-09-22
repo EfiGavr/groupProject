@@ -179,7 +179,5 @@ public class FlightService {
         };
         return modelMapper.map(flights, typeToken.getType());
     }
-
-
 }
 

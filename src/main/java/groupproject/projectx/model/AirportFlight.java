@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "airport_flight")
 @Getter
 @Setter
-@ToString(exclude = {"from1","to","flight"})
+@ToString(exclude = {"from1", "to", "flight"})
 @AllArgsConstructor
 @NoArgsConstructor
 @XmlRootElement
